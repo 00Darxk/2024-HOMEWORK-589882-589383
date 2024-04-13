@@ -27,11 +27,12 @@ public class DiaDia {
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
-
+	
 	private Partita partita;
 
 	public DiaDia() {
-		this.partita = new Partita();
+		Labirinto labirinto = new Labirinto();
+		this.partita = new Partita(labirinto);
 	}
 
 	public void gioca() {
@@ -52,8 +53,10 @@ public class DiaDia {
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
+		if(istruzione.isEmpty()) return false;
+		
 		Comando comandoDaEseguire = new Comando(istruzione);
-
+		
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
 			return true;
