@@ -108,8 +108,6 @@ public class Stanza {
 			}
 		}
 		return false;
-
-
 	}
 
 	/**
@@ -139,8 +137,8 @@ public class Stanza {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
-		for (int i=0; attrezzi[i]!=null ; i++) {
-			if (attrezzi[i].getNome().equals(nomeAttrezzo))
+		for (int i=0; i < this.numeroAttrezzi ; i++) {
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
 				trovato = true;
 		}
 		return trovato;
@@ -155,9 +153,9 @@ public class Stanza {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
-		for (int i=0; this.attrezzi[i]!=null ; i++) {
-			if (attrezzi[i].getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzi[i];
+		for (int i=0; i < this.numeroAttrezzi ; i++) {
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
+				attrezzoCercato = this.attrezzi[i];
 		}
 		return attrezzoCercato;	
 	}
@@ -169,28 +167,20 @@ public class Stanza {
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		//verifico che ci sia
-		int i=0;
-		boolean trovato=false;
-		for(i=0; attrezzi[i]!=null && !trovato; i++){
-			if(attrezzi[i].getNome().equals(attrezzo.getNome())) {
-				trovato=true;
-				i--;
-				}
+		int i;
+		boolean trovato = false;
+		for(i=0; i < this.numeroAttrezzi && !trovato; i++){
+			if(this.attrezzi[i].getNome().equals(attrezzo.getNome())) 
+				trovato = true;
 		}
-
 		if(trovato) {
-			for(;i!=9  ;i++) {
-				attrezzi[i]=attrezzi[i+1];
-			}
 			this.numeroAttrezzi--;
-		
+			this.attrezzi[i-1] = this.attrezzi[this.numeroAttrezzi];
+			this.attrezzi[this.numeroAttrezzi] = null;
 			return true;
 		}
-		else {
+		else 
 			return false;
-		}
-
-
 	}
 
 
@@ -200,7 +190,4 @@ public class Stanza {
 			direzioni[i] = this.direzioni[i];
 		return direzioni;
 	}
-
-
-
 }

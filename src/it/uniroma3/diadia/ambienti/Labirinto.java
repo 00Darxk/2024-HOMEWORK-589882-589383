@@ -1,6 +1,12 @@
 package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
+/**
+ * Classe Labirinto - il labirinto dove è ambientato il gioco di ruolo. 
+ * Crea e gestisce il labirinto.
+ * 
+ * @see Stanza
+ */
 public class Labirinto {
 	private Stanza ingresso;
 	private Stanza uscita;
@@ -8,35 +14,6 @@ public class Labirinto {
 	public Labirinto() {
 		creaStanze();
 	}
-	
-
-    public Stanza getIngresso() {
-		return ingresso;
-	}
-
-
-
-
-	public void setIngresso(Stanza ingresso) {
-		this.ingresso = ingresso;
-	}
-
-
-
-
-	public Stanza getUscita() {
-		return uscita;
-	}
-
-
-
-
-	public void setUscita(Stanza uscita) {
-		this.uscita = uscita;
-	}
-
-
-
 
 	/**
      * Crea tutte le stanze e le porte di collegamento
@@ -73,9 +50,17 @@ public class Labirinto {
 		atrio.addAttrezzo(osso);
 
 		// il gioco comincia nell'atrio
-        ingresso = atrio;  
-		uscita = biblioteca;
+        this.ingresso = atrio;  
+		this.uscita = biblioteca;
     }
+    
+    
+    public Stanza getIngresso() {
+		return this.ingresso;
+	}
 
+	public Stanza getUscita() {
+		return this.uscita;
+	}
 }
 

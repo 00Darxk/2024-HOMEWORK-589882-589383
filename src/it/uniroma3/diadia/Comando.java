@@ -37,14 +37,6 @@ public class Comando {
     }
 
     public String getParametro() {
- 
-    	//for(;this.parametro==null;) {
-    		
-    		//System.out.println("mettere parametro");
-    		//Scanner scannerDiParol = new Scanner(System.in);
-    		//this.parametro = scannerDiParol.next();
-    		
-    	//}
         return this.parametro;
     }
 

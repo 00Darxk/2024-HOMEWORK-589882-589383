@@ -1,19 +1,31 @@
 package it.uniroma3.diadia.giocatore;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
+
+/**
+ * Classe Borsa - Ha la responsabilità di memorizzare 
+ * gli oggetti del giocatore. 
+ * 
+ * @see Attrezzo
+ */
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+	
+	
 	private Attrezzo[] attrezzi;
 	private int numeroAttrezzi;
 	private int pesoMax;
+	
 	public Borsa() {
 		this(DEFAULT_PESO_MAX_BORSA);
 	}
+	
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
 		this.attrezzi = new Attrezzo[10]; // speriamo bastino...
 		this.numeroAttrezzi = 0;
 	}
+	
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (attrezzo == null || (this.getPeso() + attrezzo.getPeso() > this.getPesoMax()))
 			return false;
@@ -24,14 +36,16 @@ public class Borsa {
 		
 		return true;
 	}
+	
 	public int getPesoMax() {
-		return pesoMax;
+		return this.pesoMax;
 	}
+	
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
 			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
+				a = this.attrezzi[i];
 
 		return a;
 	}
@@ -42,31 +56,30 @@ public class Borsa {
 
 		return peso;
 	}
+	
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
 	}
+	
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}
+	
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-				//verifico che ci sia
-				int i=0;
-				boolean trovato=false;
-				for(i=0; attrezzi[i]!=null && !trovato; i++){
-					if(attrezzi[i].getNome().equals(nomeAttrezzo)) {
-							trovato=true;
-							i--;
-					}	
-				}
-				if(trovato) {
-					a=attrezzi[i];
-					for(;i!=9 ;i++) {
-						attrezzi[i]=attrezzi[i+1];
-					}
-					this.numeroAttrezzi--;
-				
-				}
+		//verifico che ci sia
+		int i=0;
+		boolean trovato=false;
+		for(i=0; i<this.numeroAttrezzi && !trovato; i++){
+			if(this.attrezzi[i].getNome().equals(nomeAttrezzo))
+				trovato=true;	
+		}
+		if(trovato) {
+			this.numeroAttrezzi--;
+			a = this.attrezzi[i-1];
+			this.attrezzi[i-1] = this.attrezzi[this.numeroAttrezzi];
+			this.attrezzi[this.numeroAttrezzi] = null;
+		}
 		return a;
 	}
 	
@@ -76,7 +89,7 @@ public class Borsa {
 		if (!this.isEmpty()) {
 			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
 			for (int i= 0; i<this.numeroAttrezzi; i++)
-				s.append(attrezzi[i].toString()+" ");
+				s.append(this.attrezzi[i].toString()+" ");
 		}
 		else
 			s.append("Borsa vuota");
