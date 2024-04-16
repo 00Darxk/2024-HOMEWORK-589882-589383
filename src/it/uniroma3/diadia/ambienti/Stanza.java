@@ -97,7 +97,7 @@ public class Stanza {
 	/**
 	 * Mette un attrezzo nella stanza.
 	 * @param attrezzo l'attrezzo da mettere nella stanza.
-	 * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
+	 * @return true se riesce ad aggiungere l'attrezzo, false altrimenti.
 	 */
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (attrezzo != null) {
@@ -112,7 +112,7 @@ public class Stanza {
 
 	/**
 	 * Restituisce una rappresentazione stringa di questa stanza,
-	 * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
+	 * stampandone la descrizione, le uscite e gli eventuali attrezzi contenuti
 	 * @return la rappresentazione stringa
 	 */
 	public String toString() {

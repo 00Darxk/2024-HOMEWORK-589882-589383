@@ -26,6 +26,12 @@ public class Borsa {
 		this.numeroAttrezzi = 0;
 	}
 	
+	/**
+	 * Aggiunge un attrezzo alla borsa. 
+	 * 
+	 * @param attrezzo
+	 * @return true se aggiunto, false altrimenti
+	 */
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (attrezzo == null || (this.getPeso() + attrezzo.getPeso() > this.getPesoMax()))
 			return false;
@@ -41,6 +47,12 @@ public class Borsa {
 		return this.pesoMax;
 	}
 	
+	/**
+	 * Restituisce un riferimento ad un attrezzo della borsa. 
+	 * 
+	 * @param nomeAttrezzo
+	 * @return riferimento ad Attrezzo, null altrimenti
+	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
@@ -61,10 +73,22 @@ public class Borsa {
 		return this.numeroAttrezzi == 0;
 	}
 	
+	/**
+	 * Verifica se un attrezzo è presente in borsa. 
+	 * 
+	 * @param nomeAttrezzo
+	 * @return true è presente, false altrimenti
+	 */
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}
 	
+	/**
+	 * Rimuove un attrezzo dalla borsa. 
+	 * 
+	 * @param nomeAttrezzo
+	 * @return riferimento ad Attrezzo, null altrimenti
+	 */
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		//verifico che ci sia
@@ -83,6 +107,11 @@ public class Borsa {
 		return a;
 	}
 	
+	/**
+	 * Restituisce una rappresentazione stringa di questa borsa, 
+	 * stampandone il peso e gli eventuali attrezzi contenuti, specificando il loro pero. 
+	 * @return la rappresentazione stringa 
+	 */
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 

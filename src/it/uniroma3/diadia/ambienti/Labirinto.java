@@ -2,10 +2,13 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
- * Classe Labirinto - il labirinto dove è ambientato il gioco di ruolo. 
- * Crea e gestisce il labirinto.
+ * Classe Labirinto - Il labirinto è il lugo fisico dove è
+ * ambientato il gioco di ruolo. Crea le stanze del labirinto, 
+ * ogni labirinto ha una stanza iniziale (entrata) ed una 
+ * stanza finale (uscita).
  * 
  * @see Stanza
+ * @see Attrezzo
  */
 public class Labirinto {
 	private Stanza ingresso;
@@ -21,9 +24,9 @@ public class Labirinto {
     private void creaStanze() {
 
 		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",3);
+		Attrezzo lanterna = new Attrezzo("lanterna",3);
 		Attrezzo osso = new Attrezzo("osso",1);
-    	
+
 		/* crea stanze del labirinto */
 		Stanza atrio = new Stanza("Atrio");
 		Stanza aulaN11 = new Stanza("Aula N11");

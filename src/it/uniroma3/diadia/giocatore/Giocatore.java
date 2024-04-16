@@ -10,7 +10,6 @@ package it.uniroma3.diadia.giocatore;
  * @see Borsa
  */
 public class Giocatore {
-	
 		static final private int CFU_INIZIALI = 20;
 	
 		private int CFU;
@@ -19,7 +18,7 @@ public class Giocatore {
 		public Giocatore() {
 			this(CFU_INIZIALI, Borsa.DEFAULT_PESO_MAX_BORSA);
 		}
-		 
+
 		public Giocatore(int CFU, int maxPeso) {
 			this.bag = new Borsa(maxPeso);
 			this.CFU = CFU;

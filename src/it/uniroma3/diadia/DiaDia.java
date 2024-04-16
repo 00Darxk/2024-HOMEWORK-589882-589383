@@ -1,11 +1,9 @@
 package it.uniroma3.diadia;
-
-
 import it.uniroma3.diadia.ambienti.Stanza;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
- * Per giocare crea un'istanza di questa classe e invoca il letodo gioca
+ * Per giocare crea un'istanza di questa classe e invoca il metodo gioca
  *
  * Questa e' la classe principale crea e istanzia tutte le altre
  *
@@ -110,13 +108,14 @@ public class DiaDia {
 	}
 
 	/**
-	 * Cerca di spostare un attrezzo dalla borsa del giocatore alla stanza corrente. Altrimenti mostra un 
+	 * Cerca di spostare un attrezzo dalla borsa del giocatore alla stanza corrente. Se non è presente, o non riesce a completare l'operazione mostra un 
 	 * messaggio di errore. 
 	 * @param nomeAttrezzo
 	 */
 	private void posa(String nomeAttrezzo) {
-		if(nomeAttrezzo != null && this.partita.getGiocatore().getBag().hasAttrezzo(nomeAttrezzo) && 
-				this.partita.getStanzaCorrente().addAttrezzo(this.partita.getGiocatore().getBag().getAttrezzo(nomeAttrezzo)))
+		if(nomeAttrezzo == null || !(this.partita.getGiocatore().getBag().hasAttrezzo(nomeAttrezzo)))
+			this.IO.mostraMessaggio("Attrezzo inesistente");
+		else if(this.partita.getStanzaCorrente().addAttrezzo(this.partita.getGiocatore().getBag().getAttrezzo(nomeAttrezzo)))
 			this.partita.getGiocatore().getBag().removeAttrezzo(nomeAttrezzo);
 		else
 			this.IO.mostraMessaggio("Non è stato possibile posare l'attrezzo specificato.");
@@ -126,17 +125,18 @@ public class DiaDia {
 	}
 
 	/**
-	 * Cerca di spostare un attrezzo dalla stanza corrente alla borsa del giocatore. Altrimenti mostra un messaggio di 
-	 * errore. 
+	 * Cerca di spostare un attrezzo dalla stanza corrente alla borsa del giocatore. Se non è presente, o non riesce a completare l'operazione mostra un 
+	 * messaggio di errore. 
 	 * @param nomeAttrezzo
 	 */
 	private void prendi(String nomeAttrezzo) {
-		if(nomeAttrezzo != null && this.partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo) &&
-				this.partita.getGiocatore().getBag().addAttrezzo(this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo))) 
+		if(nomeAttrezzo == null || !(this.partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)))
+			this.IO.mostraMessaggio("Attrezzo inesistente");
+		else if(this.partita.getGiocatore().getBag().addAttrezzo(this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo))) 
 			this.partita.getStanzaCorrente().removeAttrezzo(this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo));
 		else
 			this.IO.mostraMessaggio("Non è stato possibile prendere l'attrezzo specificato.");
-
+			
 		this.IO.mostraMessaggio(this.partita.getGiocatore().getBag().toString());
 		this.IO.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
 	}
