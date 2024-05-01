@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 	@Override
 	public Comando costruisciComando(String istruzione) {
+		if(istruzione == null)
+			return new ComandoNonValido();
+		
 		Scanner scannerDiParole = new Scanner(istruzione);
 		
 		String nomeComando = null;
