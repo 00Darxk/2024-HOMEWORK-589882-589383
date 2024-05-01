@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 
@@ -9,24 +10,40 @@ import it.uniroma3.diadia.Partita;
  * @param nomeAttrezzo
  */
 public class ComandoPrendi implements Comando {
-	private String nomeAttrezzo = null;
+	private IO io;
+	private String nomeAttrezzo;
 	
 	@Override
 	public void esegui(Partita partita) {
 		if(nomeAttrezzo == null || !(partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)))
-			System.out.println("Attrezzo inesistente");
+			this.io.mostraMessaggio("Attrezzo inesistente");
 		else if(partita.getGiocatore().getBag().addAttrezzo(partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo))) 
 			partita.getStanzaCorrente().removeAttrezzo(partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo));
 		else
-			System.out.println("Non è stato possibile prendere l'attrezzo specificato.");
+			this.io.mostraMessaggio("Non è stato possibile prendere l'attrezzo specificato.");
 
-		System.out.println(partita.getGiocatore().getBag().toString());
-		System.out.println(partita.getStanzaCorrente().getDescrizione());
+		this.io.mostraMessaggio(partita.getGiocatore().getBag().toString());
+		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 
 	@Override
 	public void setParametro(String parametro) {
 		this.nomeAttrezzo=parametro;
+	}
+
+	@Override
+	public String getNome() {
+		return "prendi";
+	}
+
+	@Override
+	public String getParametro() {
+		return this.nomeAttrezzo;
+	}
+
+	@Override
+	public void setIO(IO io) {
+		this.io = io;
 	}
 
 }
