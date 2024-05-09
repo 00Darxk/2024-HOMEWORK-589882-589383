@@ -16,10 +16,11 @@ public class StanzaTest {
 	@Before
 	public void seUp() {
 		this.vuota = new Stanza("vuota");
-		this.tool = new Attrezzo("tool", 1);
+		this.tool = new Attrezzo("tool2", 1);
 		this.piena = new Stanza("piena");
 		for(int i=0; i<10 ; i++)
-			this.piena.addAttrezzo(tool);
+			
+			this.piena.addAttrezzo(new Attrezzo("tool"+ i, 1));
 		this.room = new Stanza("room");
 	}
 
@@ -47,7 +48,7 @@ public class StanzaTest {
 	}
 	@Test
 	public void testGetAttrezzo_attrezzoPresente() {
-		assertEquals(this.tool,this.piena.getAttrezzo("tool"));
+		assertEquals(this.tool,this.piena.getAttrezzo("tool2"));
 	}
 	@Test
 	public void testGetAttrezzo_attrezzoNonPresente() {		

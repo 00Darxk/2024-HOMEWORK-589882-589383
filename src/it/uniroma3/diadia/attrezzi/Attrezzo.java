@@ -50,4 +50,11 @@ public class Attrezzo {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
 
+	
+	
+	@Override
+	public boolean equals (Object o) {
+		Attrezzo a = (Attrezzo) o;
+		return this.getNome().equals(a.getNome());
+	}
 }
