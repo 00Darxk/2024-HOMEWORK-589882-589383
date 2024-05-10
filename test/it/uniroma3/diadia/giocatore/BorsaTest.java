@@ -2,8 +2,11 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +23,8 @@ public class BorsaTest {
 	Attrezzo ps;
 	Attrezzo piuma;
 	Attrezzo libro;
+	private Borsa alfabetica;
+	private Attrezzo piuma2;
 	
 	@Before
 	public void setUp() {
@@ -27,6 +32,7 @@ public class BorsaTest {
 		this.leggero = new Attrezzo("leggero", 1);
 		this.pesante= new Attrezzo("pesante", 20);
 		this.pesata = new Borsa(30);
+		this.alfabetica = new Borsa(30);
 		
 
 		this.piena = new Borsa();
@@ -42,6 +48,12 @@ public class BorsaTest {
 		this.pesata.addAttrezzo(ps);
 		this.pesata.addAttrezzo(piuma);
 		this.pesata.addAttrezzo(libro);
+		
+		this.alfabetica.addAttrezzo(piombo);
+		this.piuma2 = new Attrezzo("piuma",4);
+		this.alfabetica.addAttrezzo(piuma2);
+		this.alfabetica.addAttrezzo(piuma);
+		this.alfabetica.addAttrezzo(libro);
 	}
 	
 	
@@ -91,8 +103,12 @@ public class BorsaTest {
 		assertEquals(libro,i.next());
 		assertEquals(ps,i.next());
 		assertEquals(piombo,i.next());
-		
-		
-		
 	}
+	
+	@Test 
+	public void testContenutoOrdinatoPerNome() {
+		assertEquals(List.of(libro,piombo,piuma,piuma2), new ArrayList<>(this.alfabetica.getContenutoOrdinatoPerNome()));
+	}
+	
+	
 }

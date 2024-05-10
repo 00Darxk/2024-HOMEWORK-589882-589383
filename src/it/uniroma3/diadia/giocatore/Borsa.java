@@ -1,10 +1,12 @@
 package it.uniroma3.diadia.giocatore;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.XMLFormatter;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -160,27 +162,20 @@ contenuto>>)  */
 	 * @return
 	 */
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
-		List<Attrezzo> ordinata = new LinkedList<>(this.attrezzi);
-		Comparator<Attrezzo> comp = new ComparatoreNome();
-		Collections.sort(ordinata,comp);
-		comp = new ComparatorePeso();
-		Collections.sort(ordinata,comp);
+		final List<Attrezzo> ordinata = new ArrayList<>(this.attrezzi);
+		final ComparatorePerPeso cmp = new ComparatorePerPeso();
+		Collections.sort(ordinata,cmp);
 		
 		return ordinata;
 	}
-	/**restituisce l'insieme degli attrezzi nella borsa ordinati per nome
-	 * 
-	 * @return
-	 
+	
 	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
-		HashSet<Attrezzo> ordinata = new HashSet<>(this.attrezzi);
-		Comparator<Attrezzo> comp = new ComparatoreNome();
-	
+		final SortedSet<Attrezzo> ordinata = new TreeSet<>(this.attrezzi);
 		
 		return ordinata;
 	}
-
 	
-	*/
+
+
 }
 

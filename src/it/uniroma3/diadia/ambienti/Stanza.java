@@ -24,7 +24,7 @@ public class Stanza {
 
 	private String nome;
 	private Map<String,Attrezzo> attrezzi;    //nome e attrezzo
-	private int numeroAttrezzi;
+
 	private Map<String,Stanza> stanzeAdiacenti;  //direzione e stanza
 
 	//private String[] direzioni;
@@ -35,7 +35,6 @@ public class Stanza {
 	 */
 	public Stanza(String nome) {
 		this.nome = nome;
-		this.numeroAttrezzi = 0;
 		this.stanzeAdiacenti = new HashMap<>(NUMERO_MASSIMO_DIREZIONI);
 		this.attrezzi = new HashMap<>(NUMERO_MASSIMO_ATTREZZI);
 	}
