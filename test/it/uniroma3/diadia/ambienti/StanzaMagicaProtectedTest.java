@@ -7,15 +7,15 @@ import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class StanzaMagicaTest {
-	Stanza subitoMagica;
-	Stanza quasiMagica;
+public class StanzaMagicaProtectedTest {
+	StanzaProtected subitoMagica;
+	StanzaProtected quasiMagica;
 	Attrezzo attrezzo;
 	
 	@Before
 	public void setUp() {
-		this.subitoMagica = new StanzaMagica("subitoMagica", 0);
-		this.quasiMagica = new StanzaMagica("magica", 1);
+		this.subitoMagica = new StanzaMagicaProtected("subitoMagica", 0);
+		this.quasiMagica = new StanzaMagicaProtected("magica", 1);
 		this.attrezzo = new Attrezzo("attrezzo", 2);
 	}
 	

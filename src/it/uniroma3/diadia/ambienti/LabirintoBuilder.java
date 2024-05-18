@@ -42,7 +42,8 @@ public class LabirintoBuilder extends Labirinto {
 	}
 	
 	public LabirintoBuilder addAttrezzo(String nomeAttrezzo, int peso) {
-		if(stanze.isEmpty()) return this;
+		if(stanze.isEmpty() || nomeStanzaCorrente == null) 
+			return this;
 		stanze.get(nomeStanzaCorrente).addAttrezzo(new Attrezzo(nomeAttrezzo, peso));
 		return this;
 	}

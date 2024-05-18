@@ -2,6 +2,10 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,7 +55,8 @@ public class StanzaBloccataTest {
 		for(int i=0;i<4;i++)
 			this.bloccataDirezioniOccupate.impostaStanzaAdiacente("dir"+i, new Stanza("dir"+i));
 		assertFalse(this.bloccataDirezioniOccupate.hasAttrezzo("attrezzo"));
-		for(int i=0;i<4;i++)
-			assertEquals("dir"+i,this.bloccataDirezioniOccupate.getStanzaAdiacente("dir"+i).getNome());
+		List<String> direzioni = new ArrayList<>();
+		direzioni.addAll(this.bloccataDirezioniOccupate.getDirezioni());
+		assertEquals(Arrays.asList("dir3", "dir2", "dir1", "dir0"),direzioni);		
 	}
 }

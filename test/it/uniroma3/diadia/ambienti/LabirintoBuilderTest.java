@@ -12,7 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-
+/**
+ * 
+ * @author docente di POO
+ */
 public class LabirintoBuilderTest {
 	private LabirintoBuilder labirintoBuilder;
 	private String nomeStanzaIniziale = "Atrio";

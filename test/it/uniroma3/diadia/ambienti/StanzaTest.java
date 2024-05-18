@@ -2,6 +2,10 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,8 +104,6 @@ public class StanzaTest {
 		for(int i = 0; i < 4; i++) 
 			this.room.impostaStanzaAdiacente("dir"+i, this.piena);
 		this.room.impostaStanzaAdiacente("Nord", this.vuota);
-		for(int i = 0; i < 4; i++)
-			assertNotEquals(this.vuota, this.room.getStanzaAdiacente("dir"+i));
-		assertNull(this.room.getStanzaAdiacente("Nord"));
+		assertFalse(this.room.getDirezioni().contains("Nord"));
 	}
 }

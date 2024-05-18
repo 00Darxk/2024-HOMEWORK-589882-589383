@@ -3,6 +3,7 @@ package it.uniroma3.diadia.giocatore;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -98,20 +99,12 @@ public class BorsaTest {
 	@Test 
 	public void testContenutoOrdinatoPerPeso() {
 		List<Attrezzo> attrezziOrdinatiPerPeso = this.borsaPesante.getContenutoOrdinatoPerPeso();
-		Iterator<Attrezzo> i = attrezziOrdinatiPerPeso.iterator();
-		assertEquals(piuma,i.next());
-		assertEquals(libro,i.next());
-		assertEquals(piumaDorata,i.next());	
-		assertEquals(piombo,i.next());
+		assertEquals(Arrays.asList(piuma, libro, piumaDorata, piombo), attrezziOrdinatiPerPeso);
 	}
 	@Test 
 	public void testContenutoOrdinatoPerNome() {
 		List<Attrezzo> attrezziOrdinatiPerNome = new ArrayList<>(this.borsaPesante.getContenutoOrdinatoPerNome());
-		Iterator<Attrezzo> i = attrezziOrdinatiPerNome.iterator();
-		assertEquals(libro,i.next());
-		assertEquals(piombo,i.next());
-		assertEquals(piuma,i.next());
-		assertEquals(piumaDorata,i.next());
+		assertEquals(Arrays.asList(libro, piombo, piuma, piumaDorata), attrezziOrdinatiPerNome);
 	}
 	
 	@Test
