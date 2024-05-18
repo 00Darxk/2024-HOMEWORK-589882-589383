@@ -14,5 +14,4 @@ public class ComparatorePerPeso implements Comparator<Attrezzo> {
 		}
 		return cmp;
 	}
-
 }

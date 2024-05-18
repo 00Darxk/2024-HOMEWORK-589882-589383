@@ -19,7 +19,6 @@ public class StanzaTest {
 		this.tool = new Attrezzo("tool2", 1);
 		this.piena = new Stanza("piena");
 		for(int i=0; i<10 ; i++)
-			
 			this.piena.addAttrezzo(new Attrezzo("tool"+ i, 1));
 		this.room = new Stanza("room");
 	}
@@ -103,5 +102,6 @@ public class StanzaTest {
 		this.room.impostaStanzaAdiacente("Nord", this.vuota);
 		for(int i = 0; i < 4; i++)
 			assertNotEquals(this.vuota, this.room.getStanzaAdiacente("dir"+i));
+		assertNull(this.room.getStanzaAdiacente("Nord"));
 	}
 }

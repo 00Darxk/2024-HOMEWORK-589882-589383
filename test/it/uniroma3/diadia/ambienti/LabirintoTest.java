@@ -15,15 +15,15 @@ public class LabirintoTest {
 
 	@Test
 	public void testCreaStanze_uscita() {
-		assertEquals(this.labirinto.getIngresso().getStanzaAdiacente("nord"),this.labirinto.getIngresso().getStanzaAdiacente("sud").getStanzaAdiacente("est").getStanzaAdiacente("est").getStanzaAdiacente("est").getStanzaAdiacente("nord"));
+		assertEquals(this.labirinto.getStanzaIniziale().getStanzaAdiacente("nord"),this.labirinto.getStanzaIniziale().getStanzaAdiacente("sud").getStanzaAdiacente("est").getStanzaAdiacente("est").getStanzaAdiacente("est").getStanzaAdiacente("nord"));
 	}
 	@Test
 	public void testCreaStanze_ingresso() {
-		assertEquals(this.labirinto.getIngresso(), this.labirinto.getUscita().getStanzaAdiacente("sud"));
+		assertEquals(this.labirinto.getStanzaIniziale(), this.labirinto.getStanzaVincente().getStanzaAdiacente("sud"));
 	}
 	@Test
 	public void testCreaStanze() {
-		assertEquals(this.labirinto.getIngresso().getStanzaAdiacente("est").getStanzaAdiacente("est"), this.labirinto.getIngresso().getStanzaAdiacente("ovest"));
+		assertEquals(this.labirinto.getStanzaIniziale().getStanzaAdiacente("est").getStanzaAdiacente("est"), this.labirinto.getStanzaIniziale().getStanzaAdiacente("ovest"));
 	}
 
 }

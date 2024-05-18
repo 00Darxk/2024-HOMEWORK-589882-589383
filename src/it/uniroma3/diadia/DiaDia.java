@@ -1,4 +1,6 @@
 package it.uniroma3.diadia;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -11,7 +13,9 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  *
  * @author  docente di POO 
  *         (da un'idea di Michael Kolling and David J. Barnes) 
- *          
+ * @see IO
+ * @see Partita
+ * @see Labirinto
  * @version base
  */
 
@@ -30,9 +34,11 @@ public class DiaDia {
 	private IO io;
 	private Partita partita;
 
-	public DiaDia(IO io) {
+
+	public DiaDia(IO io, Labirinto labirinto) {
 		this.partita = new Partita();
 		this.io = io;
+		this.partita.setLabirinto(labirinto);
 	}
 
 	public void gioca() {
@@ -44,7 +50,6 @@ public class DiaDia {
 			istruzione = this.io.leggiRiga();
 		while (!processaIstruzione(istruzione));
 	}   
-
 
 	/**
 	 * Processa una istruzione 
@@ -58,17 +63,17 @@ public class DiaDia {
 		comandoDaEseguire.setIO(io);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
-			this.io.mostraMessaggio(istruzione);
+			this.io.mostraMessaggio("Hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
 			this.io.mostraMessaggio("Hai esaurito i CFU...");
 
 		return this.partita.isFinita();
 	}
 
-
 	public static void main(String[] argc) {
 		IO io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		Labirinto labirinto = new LabirintoBuilder();
+		DiaDia gioco = new DiaDia(io, labirinto);
 
 		gioco.gioca();
 	}

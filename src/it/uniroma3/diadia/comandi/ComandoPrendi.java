@@ -45,5 +45,4 @@ public class ComandoPrendi implements Comando {
 	public void setIO(IO io) {
 		this.io = io;
 	}
-
 }

@@ -16,12 +16,12 @@ public class PartitaTest {
 
 	@Test
 	public void testVinta_stanzaVincente() {
-		this.game.setStanzaCorrente(this.game.getLab().getUscita());
+		this.game.setStanzaCorrente(this.game.getLab().getStanzaVincente());
 		assertTrue(this.game.vinta());
 	}
 	@Test
 	public void testVinta_stanzaNonVincente() {
-		this.game.setStanzaCorrente(this.game.getLab().getIngresso().getStanzaAdiacente("est"));
+		this.game.setStanzaCorrente(this.game.getLab().getStanzaIniziale().getStanzaAdiacente("est"));
 		assertFalse(this.game.vinta());
 	}
 	@Test
@@ -32,7 +32,7 @@ public class PartitaTest {
 	
 	@Test
 	public void testIsFinita_vinta() {
-		this.game.setStanzaCorrente(this.game.getLab().getUscita());
+		this.game.setStanzaCorrente(this.game.getLab().getStanzaVincente());
 		assertTrue(this.game.isFinita());
 	}
 	@Test

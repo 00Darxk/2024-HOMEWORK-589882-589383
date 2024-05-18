@@ -50,6 +50,5 @@ public class ComandoVai implements Comando{
 	@Override
 	public void setIO(IO io) {
 		this.io = io;
-	}
-	
+	}	
 }

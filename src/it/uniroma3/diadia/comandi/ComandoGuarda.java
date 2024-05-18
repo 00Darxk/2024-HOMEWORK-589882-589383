@@ -29,5 +29,4 @@ public class ComandoGuarda implements Comando {
 	public void setIO(IO io) {
 		this.io = io;
 	}
-
 }

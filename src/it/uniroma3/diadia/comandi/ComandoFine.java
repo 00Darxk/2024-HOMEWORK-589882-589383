@@ -12,7 +12,8 @@ public class ComandoFine implements Comando {
 	
 	@Override
 	public void esegui(Partita partita) {
-		io.mostraMessaggio("\nGrazie di aver giocato!");  // si desidera smettere
+		io.mostraMessaggio("\nGrazie di aver giocato!");  
+		partita.setFinita();
 	}
 
 	@Override
@@ -32,5 +33,4 @@ public class ComandoFine implements Comando {
 	public void setIO(IO io) {
 		this.io = io;
 	}
-
 }

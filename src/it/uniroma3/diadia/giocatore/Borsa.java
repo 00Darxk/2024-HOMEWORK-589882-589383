@@ -1,17 +1,15 @@
 package it.uniroma3.diadia.giocatore;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.logging.XMLFormatter;
-
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.attrezzi.ComparatorePeso;
-import it.uniroma3.diadia.attrezzi.ComparatoreNome;
 
 /**
  * Classe Borsa - Ha la responsabilità di memorizzare 
@@ -32,7 +30,7 @@ public class Borsa {
 	
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
-		this.attrezzi = new LinkedList<Attrezzo>(); // speriamo bastino...
+		this.attrezzi = new LinkedList<Attrezzo>();
 	}
 	
 	/**
@@ -44,8 +42,6 @@ public class Borsa {
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (attrezzo == null || (this.getPeso() + attrezzo.getPeso() > this.getPesoMax()))
 			return false;
-		
-		
 		return this.attrezzi.add(attrezzo);
 	}
 	
@@ -60,18 +56,22 @@ public class Borsa {
 	 * @return riferimento ad Attrezzo, null altrimenti
 	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo a = null;
-		for (Attrezzo i : this.attrezzi )
-			if (i.getNome().equals(nomeAttrezzo))
-				a = i;
-		return a;
+		Attrezzo cercato = null;
+		for (Attrezzo attrezzo : this.attrezzi )
+			if (attrezzo.getNome().equals(nomeAttrezzo))
+				cercato = attrezzo;
+		return cercato;
 	}
 	
+	/**
+	 * Restituisce il peso complessivo della borsa
+	 * 
+	 * @return il peso della borsa
+	 */
 	public int getPeso() {
 		int peso = 0;
-		for (Attrezzo i : this.attrezzi )
-			peso += i.getPeso();
-
+		for (Attrezzo attrezzo : this.attrezzi )
+			peso += attrezzo.getPeso();
 		return peso;
 	}
 	
@@ -110,6 +110,7 @@ public class Borsa {
 	/**
 	 * Restituisce una rappresentazione stringa di questa borsa, 
 	 * stampandone il peso e gli eventuali attrezzi contenuti, specificando il loro pero. 
+	 * 
 	 * @return la rappresentazione stringa 
 	 */
 	public String toString() {
@@ -124,58 +125,45 @@ public class Borsa {
 			s.append("Borsa vuota");
 		return s.toString();
 	}
-	
-	
 
-
-
-
-
-/* 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * • Aggiungere alla classe Borsa dei metodi di
-interrogazione del suo contenuto:
-– 
-
-– 
-
-– Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso()
-restituisce una mappa che associa un intero (rappresentante un
-peso) con l’insieme (comunque non vuoto) degli attrezzi di tale
-peso: tutti gli attrezzi dell'insieme che figura come valore hanno
-lo stesso peso pari all'intero che figura come chiave
-• Utilizzare questi metodi per migliorare la stampa del
-contenuto della Borsa (ad es. aggiungere e/o
-modificare un comando guarda per la stampa del suo
-contenuto>>)  */
-
-	/**restituisce la lista degli attrezzi nella borsa ordinati per peso e
+	/**
+	 * Restituisce la lista degli attrezzi nella borsa ordinati per peso e
 	 * quindi, a parità di peso, per nome
 	 * 
-	 * @return
+	 * @return lista ordinata per peso degli attrezzi
 	 */
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		final List<Attrezzo> ordinata = new ArrayList<>(this.attrezzi);
 		final ComparatorePerPeso cmp = new ComparatorePerPeso();
-		Collections.sort(ordinata,cmp);
-		
+		Collections.sort(ordinata, cmp);
 		return ordinata;
 	}
 	
+	
+	/**
+	 * Restituisce l'insieme degli attrezzi nella borsa ordinati per nome
+	 * 
+	 * @return l'insieme degli attrezzi ordinati
+	 */
 	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
 		final SortedSet<Attrezzo> ordinata = new TreeSet<>(this.attrezzi);
-		
 		return ordinata;
 	}
 	
-
-
+	/**
+	 * Restituisce una mappa che associa il peso con tutti gli atterzzi di quel peso
+	 * 
+	 * @return mappa di tutti gli insiemi di attrezzi
+	 */
+	Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+		Map<Integer, Set<Attrezzo>> mappa = new HashMap<>();
+		for(Attrezzo attrezzo : this.attrezzi) {
+			Set<Attrezzo> pesoCorrente = mappa.get(attrezzo.getPeso());
+			if(pesoCorrente == null)
+				pesoCorrente = new HashSet<Attrezzo>();
+			pesoCorrente.add(attrezzo);
+			mappa.put(attrezzo.getPeso(), pesoCorrente);
+		}
+		return mappa;
+	}
 }
-

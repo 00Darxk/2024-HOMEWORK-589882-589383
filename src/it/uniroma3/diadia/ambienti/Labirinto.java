@@ -58,12 +58,20 @@ public class Labirinto {
     }
     
     
-    public Stanza getIngresso() {
+    public Stanza getStanzaIniziale() {
 		return this.ingresso;
 	}
 
-	public Stanza getUscita() {
+	public Stanza getStanzaVincente() {
 		return this.uscita;
+	}
+	
+	public void setIngresso(Stanza ingresso) {
+		this.ingresso = ingresso;
+	}
+	
+	public void setUscita(Stanza uscita) {
+		this.uscita = uscita;
 	}
 }
 

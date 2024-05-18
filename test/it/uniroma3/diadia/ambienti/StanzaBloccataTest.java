@@ -54,6 +54,4 @@ public class StanzaBloccataTest {
 		for(int i=0;i<4;i++)
 			assertEquals("dir"+i,this.bloccataDirezioniOccupate.getStanzaAdiacente("dir"+i).getNome());
 	}
-	
-
 }

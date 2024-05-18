@@ -3,10 +3,11 @@ package it.uniroma3.diadia.giocatore;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,101 +15,120 @@ import org.junit.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class BorsaTest {
-	Borsa vuota;
-	Borsa piena;
-	Borsa pesata;
-	Attrezzo leggero;
-	Attrezzo pesante;
-	Attrezzo piombo;
-	Attrezzo ps;
-	Attrezzo piuma;
-	Attrezzo libro;
-	private Borsa alfabetica;
-	private Attrezzo piuma2;
+	private Borsa borsaVuota;
+	private Borsa borsaPiena;
+	private Borsa borsaPesante;
+	private Attrezzo piuma;
+	private Attrezzo piombo;
+	private Attrezzo libro;
+	private Attrezzo piumaDorata;
 	
 	@Before
 	public void setUp() {
-		this.vuota = new Borsa();
-		this.leggero = new Attrezzo("leggero", 1);
-		this.pesante= new Attrezzo("pesante", 20);
-		this.pesata = new Borsa(30);
-		this.alfabetica = new Borsa(30);
-		
+		this.borsaVuota = new Borsa();
+		this.borsaPiena = new Borsa();
+		this.borsaPesante = new Borsa(31);
 
-		this.piena = new Borsa();
-		for(int i=0; i<10; i++)
-			this.piena.addAttrezzo(this.leggero);
-		
-		this.piombo= new Attrezzo("piombo", 10);
-		this.ps= new Attrezzo("ps", 5);
-		this.piuma= new Attrezzo("piuma", 1);
-		this.libro= new Attrezzo("libro", 5);
+		this.piuma = new Attrezzo("piuma", 1);
+		this.piombo = new Attrezzo("piombo", 20);
+		this.libro = new Attrezzo("libro", 5);
+		this.piumaDorata = new Attrezzo("piuma",5);
 	
-		this.pesata.addAttrezzo(piombo);
-		this.pesata.addAttrezzo(ps);
-		this.pesata.addAttrezzo(piuma);
-		this.pesata.addAttrezzo(libro);
+		for(int i=0; i<10; i++)
+			this.borsaPiena.addAttrezzo(this.piuma);
 		
-		this.alfabetica.addAttrezzo(piombo);
-		this.piuma2 = new Attrezzo("piuma",4);
-		this.alfabetica.addAttrezzo(piuma2);
-		this.alfabetica.addAttrezzo(piuma);
-		this.alfabetica.addAttrezzo(libro);
+		this.borsaPesante.addAttrezzo(piombo);
+		this.borsaPesante.addAttrezzo(piuma);
+		this.borsaPesante.addAttrezzo(libro);
+		this.borsaPesante.addAttrezzo(piumaDorata);
 	}
+	
 	
 	
 	@Test
 	public void testAddAttrezzo_borsaVuota_attrezzoNull() {
-		assertFalse(this.vuota.addAttrezzo(null));
+		assertFalse(this.borsaVuota.addAttrezzo(null));
 	}
 	@Test
 	public void testAddAttrezzo_borsaVuota_attrezzoLeggero() {
-		assertTrue(this.vuota.addAttrezzo(this.leggero));
+		assertTrue(this.borsaVuota.addAttrezzo(this.piuma));
 	}
 	@Test
 	public void testAddAttrezzo_borsaVuota_attrezzoPesante() {
-		assertFalse(this.vuota.addAttrezzo(this.pesante));
+		assertFalse(this.borsaVuota.addAttrezzo(this.piombo));
 	}
 	@Test
 	public void testAddAttrezzo_borsaPienaInNumero() {
-		assertFalse(this.piena.addAttrezzo(this.leggero));
+		assertFalse(this.borsaPiena.addAttrezzo(this.piuma));
 	}
 	@Test
 	public void testAddAttrezzo_borsaPienaInPeso() {
-		Attrezzo ingombrante = new Attrezzo("ingombrante", 10);
-		this.vuota.addAttrezzo(ingombrante);
-		assertFalse(this.vuota.addAttrezzo(ingombrante));
+		this.borsaVuota.addAttrezzo(new Attrezzo("ingombrante", 10));
+		assertFalse(this.borsaVuota.addAttrezzo(piuma));
 	}
 	
 	
 	@Test
 	public void testRemoveAttrezzo_nomeNull() {
-		assertNull(this.piena.removeAttrezzo(null));
+		assertNull(this.borsaPiena.removeAttrezzo(null));
 	}
 	@Test
 	public void testRemoveAttrezzo_attrezzoNonPresente() {
-		assertNull(this.vuota.removeAttrezzo("inesistente"));
+		assertNull(this.borsaVuota.removeAttrezzo("inesistente"));
 	}
 	@Test
 	public void testRemoveAttrezzo_attrezzoPresente() {
-		this.vuota.addAttrezzo(this.leggero);
-		assertEquals(this.leggero,this.vuota.removeAttrezzo("leggero"));
+		this.borsaVuota.addAttrezzo(this.libro);
+		assertEquals(this.libro,this.borsaVuota.removeAttrezzo("libro"));
+	}
+	@Test
+	public void testRemoveAttrezzo_attrezziOmonimi() {
+		this.borsaVuota.addAttrezzo(this.piuma);
+		this.borsaVuota.addAttrezzo(this.piumaDorata);
+		assertEquals(this.piuma,this.borsaVuota.removeAttrezzo("piuma"));
+		assertEquals(this.piumaDorata,this.borsaVuota.removeAttrezzo("piuma"));
 	}
 	
+	
+	@Test
+	public void testContenutoOrdinato_BorsaVuota() {
+		assertEquals(0,this.borsaVuota.getContenutoOrdinatoPerNome().size());
+		assertEquals(0,this.borsaVuota.getContenutoOrdinatoPerPeso().size());
+	}
 	@Test 
 	public void testContenutoOrdinatoPerPeso() {
-		List<Attrezzo> vera = this.pesata.getContenutoOrdinatoPerPeso();
-		Iterator<Attrezzo> i = vera.iterator();
+		List<Attrezzo> attrezziOrdinatiPerPeso = this.borsaPesante.getContenutoOrdinatoPerPeso();
+		Iterator<Attrezzo> i = attrezziOrdinatiPerPeso.iterator();
 		assertEquals(piuma,i.next());
 		assertEquals(libro,i.next());
-		assertEquals(ps,i.next());
+		assertEquals(piumaDorata,i.next());	
 		assertEquals(piombo,i.next());
 	}
-	
 	@Test 
 	public void testContenutoOrdinatoPerNome() {
-		assertEquals(List.of(libro,piombo,piuma,piuma2), new ArrayList<>(this.alfabetica.getContenutoOrdinatoPerNome()));
+		List<Attrezzo> attrezziOrdinatiPerNome = new ArrayList<>(this.borsaPesante.getContenutoOrdinatoPerNome());
+		Iterator<Attrezzo> i = attrezziOrdinatiPerNome.iterator();
+		assertEquals(libro,i.next());
+		assertEquals(piombo,i.next());
+		assertEquals(piuma,i.next());
+		assertEquals(piumaDorata,i.next());
 	}
 	
-	
+	@Test
+	public void testContenutoRaggruppatoPerPeso_borsaVuota() {
+		assertEquals(0,this.borsaVuota.getContenutoRaggruppatoPerPeso().size());
+	}
+	@Test
+	public void testContenutoRaggruppatoPerPeso_borsaAttrezziUguali() {
+		this.borsaVuota.addAttrezzo(this.libro);
+		this.borsaVuota.addAttrezzo(this.libro);
+		assertEquals(1,this.borsaVuota.getContenutoRaggruppatoPerPeso().get(this.libro.getPeso()).size());
+	}
+	public void testContenutoRaggruppatoPerPeso_borsaAttrezziDiversi() {
+		this.borsaVuota.addAttrezzo(this.libro);
+		this.borsaVuota.addAttrezzo(this.piumaDorata);
+		Set<Attrezzo> attrezzi = new HashSet<>();
+		Collections.addAll(attrezzi, this.libro, this.piumaDorata);
+		assertEquals(attrezzi,this.borsaVuota.getContenutoRaggruppatoPerPeso().get(this.libro.getPeso()).size());
+	}
 }
