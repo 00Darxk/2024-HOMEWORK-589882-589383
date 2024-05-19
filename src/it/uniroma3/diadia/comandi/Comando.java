@@ -6,6 +6,8 @@ import it.uniroma3.diadia.Partita;
  *	creazione dei comandi del gioco di ruolo. 
  * 
  * 	@see Partita
+ *  @see IO
+ *  @version 3.0
  */
 public interface Comando {
 	public void esegui(Partita partita);	
@@ -13,4 +15,5 @@ public interface Comando {
 	public String getNome();
 	public String getParametro();
 	public void setIO(IO io);
+	public IO getIO();
 }

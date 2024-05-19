@@ -5,9 +5,15 @@ import it.uniroma3.diadia.Partita;
 
 
 /**
- * Cerca di spostare un attrezzo dalla stanza corrente alla borsa del giocatore. Se non è presente, o non riesce a completare l'operazione mostra un 
- * messaggio di errore. 
- * @param nomeAttrezzo
+ * Classe ComandoPrendi - Sposta un attrezzo dalla stanza corrente 
+ * del giocatore alla borsa
+ * 
+ * @see Stanza
+ * @see Attrezzo
+ * @see Comando
+ * @see Partita
+ * @see IO
+ * @version 3.0
  */
 public class ComandoPrendi implements Comando {
 	private IO io;
@@ -44,5 +50,10 @@ public class ComandoPrendi implements Comando {
 	@Override
 	public void setIO(IO io) {
 		this.io = io;
+	}
+	
+	@Override
+	public IO getIO() {
+		return this.io;
 	}
 }

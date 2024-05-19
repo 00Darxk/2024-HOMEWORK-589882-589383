@@ -9,7 +9,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  *
  * @author  docente di POO
  * @see Stanza
- * @version base
+ * @version 3.0
  */
 public class Attrezzo implements Comparable<Attrezzo>{
 

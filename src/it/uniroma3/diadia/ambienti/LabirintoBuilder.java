@@ -11,6 +11,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * @see Labirinto
  * @see Stanza
  * @see Attrezzo
+ * @version 3.0
  */
 
 public class LabirintoBuilder extends Labirinto {
@@ -25,22 +26,56 @@ public class LabirintoBuilder extends Labirinto {
 		this.nomeStanzaCorrente = null;
 	}
 	
-	public LabirintoBuilder addStanzaIniziale(String nomeStanzaIniziale) {
-		Stanza stanzaIniziale = new Stanza(nomeStanzaIniziale);
+	/**
+	 * Crea una stanza, e la imposta come stanza iniziale
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
+	public LabirintoBuilder addStanzaIniziale(String nomeStanza) {
+		Stanza stanzaIniziale = new Stanza(nomeStanza);
 		super.setIngresso(stanzaIniziale);
-		this.stanze.put(nomeStanzaIniziale, stanzaIniziale);
-		this.nomeStanzaCorrente = nomeStanzaIniziale;
+		this.stanze.put(nomeStanza, stanzaIniziale);
+		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
-	public LabirintoBuilder addStanzaVincente(String nomeStanzaVincente) {
-		Stanza stanzaVincente = new Stanza(nomeStanzaVincente);
+	/**
+	 * Imposta una stanza come stanza iniziale
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
+	public LabirintoBuilder setStanzaIniziale(String nomeStanza) {
+		super.setIngresso(this.stanze.get(nomeStanza));
+		return this;
+	}
+	
+	/**
+	 * Crea una stanza, e la imposta come stanza vincente
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
+	public LabirintoBuilder addStanzaVincente(String nomeStanza) {
+		Stanza stanzaVincente = new Stanza(nomeStanza);
 		super.setUscita(stanzaVincente);
-		this.stanze.put(nomeStanzaVincente,stanzaVincente);
-		this.nomeStanzaCorrente = nomeStanzaVincente;
+		this.stanze.put(nomeStanza,stanzaVincente);
+		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
+	public LabirintoBuilder setStanzaVincente(String nomeStanza) {
+		super.setUscita(this.stanze.get(nomeStanza));
+		return this;
+	}
+
+	/**
+	 * Imposta una stanza come stanza vincente
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addAttrezzo(String nomeAttrezzo, int peso) {
 		if(stanze.isEmpty() || nomeStanzaCorrente == null) 
 			return this;
@@ -48,6 +83,15 @@ public class LabirintoBuilder extends Labirinto {
 		return this;
 	}
 	
+	/**
+	 * Imposta la seconda stanza come adiacente alla prima, nella direzione specificata. 
+	 * Entrambe le stanze devono esistere affinché venga effettuate l'operazione. 
+	 * 
+	 * @param nomeStanza
+	 * @param nomeStanzaAdiacente
+	 * @param direzione
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addAdiacenza(String nomeStanza, String nomeStanzaAdiacente, String direzione) {
 		if(stanze.isEmpty() || stanze.get(nomeStanza) == null || stanze.get(nomeStanzaAdiacente) == null)
 			return this;
@@ -56,30 +100,63 @@ public class LabirintoBuilder extends Labirinto {
 		return this;
 	}
 	
+	/**
+	 * Crea una stanza
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addStanza(String nomeStanza) {
 		stanze.put(nomeStanza, new Stanza(nomeStanza));
 		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
+	/**
+	 * Crea una stanza magica
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addStanzaMagica(String nomeStanza) {
 		stanze.put(nomeStanza, new StanzaMagica(nomeStanza));
 		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
+	/**
+	 * Crea una stanza magica, di soglia magica specificata
+	 * 
+	 * @param nomeStanza
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addStanzaMagica(String nomeStanza, int sogliaMagica) {
 		stanze.put(nomeStanza, new StanzaMagica(nomeStanza, sogliaMagica));
 		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
+	/**
+	 * Crea una stanza bloccata
+	 * 
+	 * @param nomeStanza
+	 * @param direzioneBloccata
+	 * @param nomeAttrezzo
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addStanzaBloccata(String nomeStanza, String direzioneBloccata, String nomeAttrezzo) {
 		stanze.put(nomeStanza, new StanzaBloccata(nomeStanza, direzioneBloccata, nomeAttrezzo));
 		this.nomeStanzaCorrente = nomeStanza;
 		return this;
 	}
 	
+	/**
+	 * Crea una stanza buia
+	 * 
+	 * @param nomeStanza
+	 * @param nomeAttrezzo
+	 * @return riferimento a sé stesso
+	 */
 	public LabirintoBuilder addStanzaBuia(String nomeStanza, String nomeAttrezzo) {
 		stanze.put(nomeStanza, new StanzaBuia(nomeStanza, nomeAttrezzo));
 		this.nomeStanzaCorrente = nomeStanza;
@@ -89,7 +166,12 @@ public class LabirintoBuilder extends Labirinto {
 	public LabirintoBuilder getLabirinto() {
 		return this;
 	}
-
+	
+	/** 
+	 * Restituisce la mappa delle stanze
+	 * 
+	 * @return mappa nome2stanza
+	 */
 	public Map<String,Stanza> getListaStanze(){
 		return stanze;
 	}

@@ -36,6 +36,4 @@ public class StanzaBuiaTest {
 		this.buia.removeAttrezzo(this.attrezzo);
 		assertEquals("qui c'è buio pesto...",this.buia.getDescrizione());
 	}
-	
-	
 }

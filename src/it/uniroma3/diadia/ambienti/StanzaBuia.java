@@ -6,6 +6,8 @@ package it.uniroma3.diadia.ambienti;
  * 	attrezzo specifico per ottenere la descrizione
  * 	completa della stanza. 
  * 
+ * @see Stanza
+ * @version 3.0
  */
 public class StanzaBuia extends Stanza{
 	private String nomeAttrezzoNecessario;

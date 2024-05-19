@@ -4,6 +4,8 @@ import java.util.Scanner;
 /**
  * Classe IOConsole - Gestisce la stampa e la lettura a schermo. 
  * 
+ * @see IO
+ * @version 3.0
  */
 public class IOConsole implements IO{
 	@Override

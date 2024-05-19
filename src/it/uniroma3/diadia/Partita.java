@@ -6,11 +6,11 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 /**
  * Questa classe modella una partita del gioco
  *
- * @author  docente di POO
+ * @author docente di POO
  * @see Stanza
  * @see Labirinto
  * @see Giocatore
- * @version base
+ * @version 3.0
  */
 
 public class Partita {
@@ -20,27 +20,24 @@ public class Partita {
 	private Labirinto lab;
 	private Giocatore player;
 	
-	public Partita(Labirinto labirinto) {
+	public Partita(Labirinto labirinto, Giocatore giocatore) {
 		this.finita = false;
 		this.lab = labirinto;
-		this.player = new Giocatore();
-		this.stanzaCorrente = this.lab.getStanzaIniziale();	
+		this.player = giocatore;
+		this.stanzaCorrente = this.lab.getStanzaIniziale();
+	}
+	
+	public Partita(Labirinto labirinto) {
+		this(labirinto, new Giocatore());
 	}
 	
 	public Partita() {
-		this(new Labirinto());
+		this(new Labirinto(), new Giocatore());
 	}
 
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
-	}
-
-	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
-	}
-	
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
+	 * 
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
@@ -49,6 +46,7 @@ public class Partita {
 
 	/**
 	 * Restituisce vero se e solo se la partita e' finita
+	 * 
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
@@ -70,7 +68,12 @@ public class Partita {
 	public Labirinto getLab() {
 		return this.lab;
 	}
-
+	
+	/**
+	 * Controlla se il giocatore ha abbastanza CFU rimanenti
+	 * 
+	 * @return true se CFU > 0, false altrimenti
+	 */
 	public boolean giocatoreIsVivo() {
 		return this.player.getCFU()>0;
 	}
@@ -78,4 +81,13 @@ public class Partita {
 	public void setLabirinto(Labirinto labirinto) {
 		this.lab = labirinto;
 	}
+	
+	public void setStanzaCorrente(Stanza stanzaCorrente) {
+		this.stanzaCorrente = stanzaCorrente;
+	}
+
+	public Stanza getStanzaCorrente() {
+		return this.stanzaCorrente;
+	}
+	
 }

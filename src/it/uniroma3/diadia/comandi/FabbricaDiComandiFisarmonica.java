@@ -2,6 +2,13 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+/** 
+ * Classe FabbricaDiComandiFisarmonica - Modella la creazione dei comandi
+ * 
+ * @see FabbricaDiComandi
+ * @see Comando
+ * @version 3.0
+ */
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 	@Override
 	public Comando costruisciComando(String istruzione) {

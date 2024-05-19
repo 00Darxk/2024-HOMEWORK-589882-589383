@@ -14,7 +14,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * 
  * @author docente di POO 
  * @see Attrezzo
- * @version base
+ * @version 3.0
  */
 
 public class Stanza {
@@ -22,8 +22,8 @@ public class Stanza {
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
-	private Map<String, Attrezzo> attrezzi;    		// nome e attrezzo
-	private Map<String, Stanza> stanzeAdiacenti;  	// direzione e stanza
+	private Map<String, Attrezzo> attrezzi;    		// nome2stanza
+	private Map<String, Stanza> stanzeAdiacenti;  	// direzione2stanza
 	
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -102,9 +102,9 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		risultato.append(this.stanzeAdiacenti.keySet().toString());
+		risultato.append(this.getDirezioni().toString());
 		risultato.append("\nAttrezzi nella stanza: ");
-		risultato.append(this.attrezzi.values().toString());
+		risultato.append(this.getAttrezzi().toString());
 		return risultato.toString();
 	}
 
@@ -145,8 +145,12 @@ public class Stanza {
 		return this.stanzeAdiacenti.keySet(); 
 	}
 
+	/**
+	 * Restituise la mappa delle stanze adiacenti
+	 * @return mappa direzione2stanza
+	 */
 	public Map<String, Stanza> getMapStanzeAdiacenti() {
-		return stanzeAdiacenti;
+		return this.stanzeAdiacenti;
 	}
 	
 	@Override

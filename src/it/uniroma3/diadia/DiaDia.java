@@ -1,6 +1,5 @@
 package it.uniroma3.diadia;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -16,7 +15,9 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  * @see IO
  * @see Partita
  * @see Labirinto
- * @version base
+ * @see Comando
+ * @see FabbricaDiComandi
+ * @version 3.0
  */
 
 public class DiaDia {
@@ -35,10 +36,13 @@ public class DiaDia {
 	private Partita partita;
 
 
-	public DiaDia(IO io, Labirinto labirinto) {
-		this.partita = new Partita();
+	public DiaDia(IO io) {
+		this(new Partita(), io);
+	}
+	
+	public DiaDia(Partita partita, IO io) {
+		this.partita = partita;
 		this.io = io;
-		this.partita.setLabirinto(labirinto);
 	}
 
 	public void gioca() {
@@ -60,7 +64,7 @@ public class DiaDia {
 		Comando comandoDaEseguire;
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 		comandoDaEseguire = factory.costruisciComando(istruzione);
-		comandoDaEseguire.setIO(io);
+		comandoDaEseguire.setIO(this.io);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
 			this.io.mostraMessaggio("Hai vinto!");
@@ -71,9 +75,8 @@ public class DiaDia {
 	}
 
 	public static void main(String[] argc) {
-		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder();
-		DiaDia gioco = new DiaDia(io, labirinto);
+		IO io = new IOConsole();;
+		DiaDia gioco = new DiaDia(io);
 
 		gioco.gioca();
 	}

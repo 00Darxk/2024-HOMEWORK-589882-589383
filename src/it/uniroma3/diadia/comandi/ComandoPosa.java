@@ -4,10 +4,17 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 
+
 /**
- * Cerca di spostare un attrezzo dalla borsa del giocatore alla stanza corrente. Se non è presente, o non riesce a completare l'operazione mostra un 
- * messaggio di errore. 
- * @param nomeAttrezzo
+ * Classe ComandoPosa - Sposta un attrezzo dalla borsa 
+ * del giocatore alla stanza corrente
+ * 
+ * @see Stanza
+ * @see Attrezzo
+ * @see Comando
+ * @see Partita
+ * @see IO
+ * @version 3.0
  */
 public class ComandoPosa implements Comando {
 	private IO io;
@@ -41,8 +48,11 @@ public class ComandoPosa implements Comando {
 		return this.nomeAttrezzo;
 	}
 
-	@Override
 	public void setIO(IO io) {
 		this.io = io;
+	}
+	
+	public IO getIO() {
+		return this.io;
 	}
 }

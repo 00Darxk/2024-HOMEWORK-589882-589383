@@ -7,14 +7,14 @@ import java.util.Set;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
- * Classe Stanza - una stanza in un gioco di ruolo.
+ * Classe StanzaProtected - una stanza in un gioco di ruolo.
  * Una stanza e' un luogo fisico nel gioco.
  * E' collegata ad altre stanze attraverso delle uscite.
  * Ogni uscita e' associata ad una direzione.
  * 
  * @author docente di POO 
  * @see Attrezzo
- * @version base
+ * @version 3.0
  */
 
 public class StanzaProtected {
@@ -145,6 +145,10 @@ public class StanzaProtected {
 		return this.stanzeAdiacenti.keySet(); 
 	}
 
+	/**
+	 * Restituise la mappa delle stanze adiacenti
+	 * @return mappa direzione2stanza
+	 */
 	public Map<String, Stanza> getMapStanzeAdiacenti() {
 		return stanzeAdiacenti;
 	}

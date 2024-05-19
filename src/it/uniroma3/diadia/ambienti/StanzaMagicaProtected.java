@@ -2,10 +2,11 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-/** Classe StanzaMagica - Modella il comportamento 
+/** Classe StanzaMagicaProtected - Modella il comportamento 
  * 	di stanze magiche nel gioco di ruolo. 
  * 
- * 	@see Stanza
+ * 	@see StanzaProtected
+ *  @version 3.0
  */
 public class StanzaMagicaProtected extends StanzaProtected{
 	final static private int SOGLIA_MAGICA_DEFAULT = 3;
@@ -34,6 +35,12 @@ public class StanzaMagicaProtected extends StanzaProtected{
 		return false;	
 	}
 
+	/**
+	 * Modifica un attrezzo invertendo il nome, e raddoppiandone il peso
+	 * 
+	 * @param attrezzo
+	 * @return attrezzo modificato
+	 */
 	private Attrezzo modificaAttrezzo(Attrezzo attrezzo) {
 		StringBuilder nomeInvertito;
 		int pesoX2 = attrezzo.getPeso() * 2;

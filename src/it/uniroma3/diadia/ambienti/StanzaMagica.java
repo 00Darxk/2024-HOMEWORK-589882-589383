@@ -3,9 +3,11 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /** Classe StanzaMagica - Modella il comportamento 
- * 	di stanze magiche nel gioco di ruolo. 
+ * 	di stanze magiche nel gioco di ruolo. Dopo aver superato
+ *  una soglia magica, gli attrezzi vengono modificati
  * 
  * 	@see Stanza
+ *  @version 3.0
  */
 public class StanzaMagica extends Stanza{
 	final static private int SOGLIA_MAGICA_DEFAULT = 3;
@@ -30,7 +32,12 @@ public class StanzaMagica extends Stanza{
 		return super.addAttrezzo(attrezzo);	
 	}
 	
-	
+	/**
+	 * Modifica un attrezzo invertendo il nome, e raddoppiandone il peso
+	 * 
+	 * @param attrezzo
+	 * @return attrezzo modificato
+	 */
 	private Attrezzo modificaAttrezzo(Attrezzo attrezzo) {
 		StringBuilder nomeInvertito;
 		int pesoX2 = attrezzo.getPeso() * 2;

@@ -2,10 +2,6 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,8 +23,6 @@ public class StanzaTest {
 		this.room = new Stanza("room");
 	}
 
-	
-	
 	
 	@Test
 	public void testAddAttrezzo_stanzaVuota() {

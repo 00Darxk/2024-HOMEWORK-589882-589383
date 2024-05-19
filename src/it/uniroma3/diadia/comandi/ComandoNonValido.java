@@ -3,6 +3,15 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
+/**
+ * Classe ComandoNonValido - Modella il 
+ * comportamento di un comando sconosciuto
+ * 
+ * @see Comando
+ * @see Partita
+ * @see IO
+ * @version 3.0
+ */
 public class ComandoNonValido implements Comando{
 	private IO io;
 	
@@ -28,4 +37,8 @@ public class ComandoNonValido implements Comando{
 	public void setIO(IO io) {
 		this.io = io;
 	}	
+	
+	public IO getIO() {
+		return this.io;
+	}
 }

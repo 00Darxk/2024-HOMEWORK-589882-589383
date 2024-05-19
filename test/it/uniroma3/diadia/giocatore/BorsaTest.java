@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -98,8 +97,7 @@ public class BorsaTest {
 	}
 	@Test 
 	public void testContenutoOrdinatoPerPeso() {
-		List<Attrezzo> attrezziOrdinatiPerPeso = this.borsaPesante.getContenutoOrdinatoPerPeso();
-		assertEquals(Arrays.asList(piuma, libro, piumaDorata, piombo), attrezziOrdinatiPerPeso);
+		assertEquals(Arrays.asList(piuma, libro, piumaDorata, piombo), (List<Attrezzo>)this.borsaPesante.getContenutoOrdinatoPerPeso());
 	}
 	@Test 
 	public void testContenutoOrdinatoPerNome() {
@@ -112,7 +110,7 @@ public class BorsaTest {
 		assertEquals(0,this.borsaVuota.getContenutoRaggruppatoPerPeso().size());
 	}
 	@Test
-	public void testContenutoRaggruppatoPerPeso_borsaAttrezziUguali() {
+	public void testContenutoRaggruppatoPerPeso_borsaAttrezziDuplicati() {
 		this.borsaVuota.addAttrezzo(this.libro);
 		this.borsaVuota.addAttrezzo(this.libro);
 		assertEquals(1,this.borsaVuota.getContenutoRaggruppatoPerPeso().get(this.libro.getPeso()).size());

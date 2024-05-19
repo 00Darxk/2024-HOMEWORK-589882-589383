@@ -3,6 +3,15 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
+/**
+ * Classe ComandoGuarda - Fornisce informazioni sulla 
+ * partita e sulla stanza corrente
+ * 
+ * @see Comando
+ * @see Partita
+ * @see IO
+ * @version 3.0
+ */
 public class ComandoGuarda implements Comando {
 	private IO io;
 	
@@ -28,5 +37,9 @@ public class ComandoGuarda implements Comando {
 	@Override
 	public void setIO(IO io) {
 		this.io = io;
+	}
+	
+	public IO getIO() {
+		return this.io;
 	}
 }

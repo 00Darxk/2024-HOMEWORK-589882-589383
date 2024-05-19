@@ -8,6 +8,7 @@ package it.uniroma3.diadia.giocatore;
  * tipo Borsa.
  * 
  * @see Borsa
+ * @version 3.0
  */
 public class Giocatore {
 		static final private int CFU_INIZIALI = 20;

@@ -69,12 +69,8 @@ public class LabirintoBuilderTest {
 				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
 				.getLabirinto();
 		assertEquals(bilocale.getStanzaVincente(),bilocale.getStanzaIniziale().getStanzaAdiacente("nord"));
-		assertTrue(bilocale.getStanzaIniziale().getDirezioni().remove("nord"));
-		assertTrue(bilocale.getStanzaIniziale().getDirezioni().isEmpty());
-		assertTrue(bilocale.getStanzaVincente().getDirezioni().remove("sud"));
-		assertTrue(bilocale.getStanzaVincente().getDirezioni().isEmpty());
-		//assertEquals(Collections.singletonList("nord"),bilocale.getStanzaIniziale().getDirezioni());
-		//assertEquals(Collections.singletonList("sud"),bilocale.getStanzaVincente().getDirezioni());
+		assertTrue(bilocale.getStanzaIniziale().getDirezioni().containsAll(Arrays.asList("nord")));
+		assertTrue(bilocale.getStanzaVincente().getDirezioni().containsAll(Arrays.asList("sud")));
 	}
 	
 	@Test

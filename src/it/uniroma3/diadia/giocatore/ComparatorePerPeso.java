@@ -4,6 +4,11 @@ import java.util.Comparator;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
+/** Classe ComparatorePerPeso - Comparatore per la classe Attrezzo. 
+ * 
+ * @see Attrezzo
+ * @version 3.0
+ */
 public class ComparatorePerPeso implements Comparator<Attrezzo> {
 
 	@Override

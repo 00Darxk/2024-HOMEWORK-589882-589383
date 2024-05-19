@@ -6,6 +6,11 @@ import it.uniroma3.diadia.Partita;
 
 /**
  * Classe ComandoFine - Termina la partita. 
+ * 
+ * @see Comando
+ * @see Partita
+ * @see IO
+ * @version 3.0
  */
 public class ComandoFine implements Comando {
 	private IO io;
@@ -32,5 +37,9 @@ public class ComandoFine implements Comando {
 	@Override
 	public void setIO(IO io) {
 		this.io = io;
+	}
+	
+	public IO getIO() {
+		return this.io;
 	}
 }

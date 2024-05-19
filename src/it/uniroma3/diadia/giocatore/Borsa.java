@@ -16,6 +16,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * gli oggetti del giocatore. 
  * 
  * @see Attrezzo
+ * @version 3.0
  */
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
@@ -23,6 +24,7 @@ public class Borsa {
 	
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
+	private int pesoCorrente;
 	
 	public Borsa() {
 		this(DEFAULT_PESO_MAX_BORSA);
@@ -30,6 +32,7 @@ public class Borsa {
 	
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
+		this.pesoCorrente = 0;
 		this.attrezzi = new LinkedList<Attrezzo>();
 	}
 	
@@ -42,6 +45,8 @@ public class Borsa {
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (attrezzo == null || (this.getPeso() + attrezzo.getPeso() > this.getPesoMax()))
 			return false;
+		else
+			this.pesoCorrente += attrezzo.getPeso();
 		return this.attrezzi.add(attrezzo);
 	}
 	
@@ -56,11 +61,9 @@ public class Borsa {
 	 * @return riferimento ad Attrezzo, null altrimenti
 	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo cercato = null;
-		for (Attrezzo attrezzo : this.attrezzi )
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				cercato = attrezzo;
-		return cercato;
+		if(nomeAttrezzo == null || attrezzi.isEmpty() || attrezzi.indexOf(new Attrezzo(nomeAttrezzo, 0)) == -1)
+			return null;
+		return attrezzi.get(attrezzi.indexOf(new Attrezzo(nomeAttrezzo, 0)));
 	}
 	
 	/**
@@ -69,10 +72,7 @@ public class Borsa {
 	 * @return il peso della borsa
 	 */
 	public int getPeso() {
-		int peso = 0;
-		for (Attrezzo attrezzo : this.attrezzi )
-			peso += attrezzo.getPeso();
-		return peso;
+		return this.pesoCorrente;
 	}
 	
 	public boolean isEmpty() {
@@ -96,15 +96,11 @@ public class Borsa {
 	 * @return riferimento ad Attrezzo, null altrimenti
 	 */
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-		Attrezzo a = null;
-		//verifico che ci sia
-		for(Attrezzo i : this.attrezzi) {
-			if(i.getNome().equals(nomeAttrezzo)) {
-				a=i;
-				this.attrezzi.remove(a);
-			}
-		}
-		return a;
+		if(nomeAttrezzo == null || attrezzi.isEmpty() || attrezzi.indexOf(new Attrezzo(nomeAttrezzo, 0)) == -1)
+			return null;
+		else
+			this.pesoCorrente -= attrezzi.get(attrezzi.indexOf(new Attrezzo(nomeAttrezzo ,0))).getPeso();
+		return this.attrezzi.remove(attrezzi.indexOf(new Attrezzo(nomeAttrezzo ,0)));
 	}
 	
 	/**
@@ -117,9 +113,8 @@ public class Borsa {
 		StringBuilder s = new StringBuilder();
 
 		if (!this.isEmpty()) {
-			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-			for (Attrezzo i : this.attrezzi)
-				s.append(i.toString()+" ");
+			s.append("Contenuto borsa: ");
+			s.append(attrezzi.toString());
 		}
 		else
 			s.append("Borsa vuota");
@@ -153,9 +148,9 @@ public class Borsa {
 	/**
 	 * Restituisce una mappa che associa il peso con tutti gli atterzzi di quel peso
 	 * 
-	 * @return mappa di tutti gli insiemi di attrezzi
+	 * @return mappa di tutti gli insiemi di attrezzi peso2attrezzi
 	 */
-	Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
 		Map<Integer, Set<Attrezzo>> mappa = new HashMap<>();
 		for(Attrezzo attrezzo : this.attrezzi) {
 			Set<Attrezzo> pesoCorrente = mappa.get(attrezzo.getPeso());
