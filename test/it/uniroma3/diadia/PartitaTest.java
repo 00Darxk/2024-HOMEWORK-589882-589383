@@ -2,15 +2,28 @@ package it.uniroma3.diadia;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
+import it.uniroma3.diadia.ambienti.Labirinto;
 
 public class PartitaTest {
 	Partita game;
 	
 	@Before
-	public void setUp() {
-		this.game = new Partita();
+	public void setUp() throws FormatoFileNonValidoException, IOException {
+
+		this.game = new Partita(Labirinto.newBuilder()
+				.addStanzaIniziale("Atrio")
+				.addStanzaVincente("Biblioteca")
+				.addStanza("Aula 11")
+				.addAdiacenza("Atrio", "Biblioteca", "Nord")
+				.addAdiacenza("Atrio", "Aula 11", "Est")
+				.getLabirinto());
 	}
 	
 
@@ -21,7 +34,7 @@ public class PartitaTest {
 	}
 	@Test
 	public void testVinta_stanzaNonVincente() {
-		this.game.setStanzaCorrente(this.game.getLab().getStanzaIniziale().getStanzaAdiacente("est"));
+		this.game.setStanzaCorrente(this.game.getLab().getStanzaIniziale().getStanzaAdiacente(Direzione.EST));
 		assertFalse(this.game.vinta());
 	}
 	@Test

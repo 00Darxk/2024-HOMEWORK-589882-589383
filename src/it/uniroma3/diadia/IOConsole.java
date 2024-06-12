@@ -5,9 +5,15 @@ import java.util.Scanner;
  * Classe IOConsole - Gestisce la stampa e la lettura a schermo. 
  * 
  * @see IO
- * @version 3.0
+ * @version 4.0
  */
 public class IOConsole implements IO{
+	private Scanner scannerDiLinee;
+	
+	public IOConsole(Scanner scanner) {
+		this.scannerDiLinee = scanner;
+	}
+	
 	@Override
 	public void mostraMessaggio(String msg) {
 		System.out.println(msg);
@@ -15,9 +21,7 @@ public class IOConsole implements IO{
 	
 	@Override
 	public String leggiRiga() {
-		Scanner scannerDiLinee = new Scanner(System.in);
-		String riga = scannerDiLinee.nextLine();
-		// scannerDiLinee.close();
+		String riga = this.scannerDiLinee.nextLine();
 		return riga;
 	}
 }

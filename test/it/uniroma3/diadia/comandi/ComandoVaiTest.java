@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
 
 public class ComandoVaiTest {
 	private Comando comandoVai;
@@ -22,7 +22,7 @@ public class ComandoVaiTest {
 	
 	@Test
 	public void eseguiTest_stanzaInesistente() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.getLabirinto());
 		this.comandoVai.esegui(this.partita);
@@ -31,7 +31,7 @@ public class ComandoVaiTest {
 	
 	@Test
 	public void eseguiTest_stanzaPresente() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.addStanzaVincente("salotto")
 				.addAdiacenza("camera", "salotto", "nord")
@@ -39,5 +39,15 @@ public class ComandoVaiTest {
 		assertEquals(this.partita.getLab().getStanzaIniziale(),this.partita.getStanzaCorrente());
 		this.comandoVai.esegui(this.partita);
 		assertEquals(this.partita.getLab().getStanzaVincente(),this.partita.getStanzaCorrente());
+	}
+	
+	@Test
+	public void eseguiTest_direzioneAssente() {
+		this.partita = new Partita( Labirinto.newBuilder()
+				.addStanzaIniziale("Atrio")
+				.getLabirinto());
+		this.comandoVai.setParametro(null);
+		this.comandoVai.esegui(partita);
+		assertEquals("Dove vuoi andare ?", ((IOSimulator)this.comandoVai.getIO()).getStampeEseguite().get(0));
 	}
 }

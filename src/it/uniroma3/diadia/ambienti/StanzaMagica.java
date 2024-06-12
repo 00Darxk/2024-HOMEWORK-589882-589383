@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.Proprietà;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /** Classe StanzaMagica - Modella il comportamento 
@@ -7,10 +8,11 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  *  una soglia magica, gli attrezzi vengono modificati
  * 
  * 	@see Stanza
- *  @version 3.0
+ * 	@see Proprietà
+ *  @version 4.0
  */
 public class StanzaMagica extends Stanza{
-	final static private int SOGLIA_MAGICA_DEFAULT = 3;
+	final static private int SOGLIA_MAGICA_DEFAULT = Proprietà.getSogliaMagica();
 	
 	private int contatoreAttrezziPosati;
 	private int sogliaMagica;

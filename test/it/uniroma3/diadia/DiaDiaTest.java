@@ -6,25 +6,20 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Giocatore;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
-public class TestDiAccettazione {
-	static final private String MESSAGGIO_BENVENUTO = ""+
-			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
-			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
-			"I locali sono popolati da strani personaggi, " +
-			"alcuni amici, altri... chissa!\n"+
-			"Ci sono attrezzi che potrebbero servirti nell'impresa:\n"+
-			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
-			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
-			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	static final private String MESSAGGIO_VITTORIA = "Hai vinto!";
-	static final private String MESSAGGIO_SCONFITTA = "Hai esaurito i CFU...";
-	static final private String MESSAGGIO_FINE = "\nGrazie di aver giocato!";
+public class DiaDiaTest {
+	static final private String MESSAGGIO_BENVENUTO = Proprietà.getMessaggioBenvenuto();
+	static final private String MESSAGGIO_VITTORIA = Proprietà.getMessaggioVittoria();
+	static final private String MESSAGGIO_SCONFITTA = Proprietà.getMessaggioSconfitta();
+	static final private String MESSAGGIO_FINE = Proprietà.getMessaggioFine();
 
 	private DiaDia diadia;
 	private IOSimulator io;
+
 
 
 	@Before
@@ -36,7 +31,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_comandoFine() {
 		this.diadia = new DiaDia (
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.getLabirinto()), 
 				this.io.aggiungiComandoDaEseguire("fine"));
@@ -49,7 +44,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_comandoVai() {
 		this.diadia = new DiaDia (
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.getLabirinto()), 
 				this.io.aggiungiComandoDaEseguire("vai nord")
@@ -62,7 +57,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_comandoGuarda() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addAttrezzo("piuma", 1)
 						.getLabirinto()),
@@ -76,7 +71,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_comandoPrendi() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addAttrezzo("piuma", 1)
 						.getLabirinto()),
@@ -90,7 +85,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_comandoPosa() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addAttrezzo("piuma", 1)
 						.getLabirinto()),
@@ -105,7 +100,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_vintaInStanzaVincente() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.setStanzaVincente("aula 1")
 						.getLabirinto()), 
@@ -120,7 +115,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_vintaDopoSpostamento() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addStanzaVincente("aula 2")
 						.addAdiacenza("aula 1", "aula 2", "nord")
@@ -135,7 +130,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_sconfittaEsaurimentoCFU() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addStanza("aula 2")
 						.addAdiacenza("aula 1", "aula 2", "nord")
@@ -152,7 +147,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_vintaDopoSbloccaStanzaBloccata() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaIniziale("aula 1")
 						.addAttrezzo("chiave", 1)
 						.addStanzaBloccata("aula 2", "nord", "chiave")
@@ -173,7 +168,7 @@ public class TestDiAccettazione {
 	public void diadiaTest_vintaDopoSbloccaStanzaBloccataConChiaveInvertita() {
 		this.diadia = new DiaDia(
 				new Partita(
-						new LabirintoBuilder()
+						Labirinto.newBuilder()
 						.addStanzaMagica("aula 1", 1)
 						.setStanzaIniziale("aula 1")
 						.addStanzaBloccata("aula 2", "nord", "evaihc")
@@ -198,5 +193,55 @@ public class TestDiAccettazione {
 		assertTrue(this.io.getStampeEseguite().contains(MESSAGGIO_VITTORIA));
 	}
 	
+	@Test
+	public void diadiaTest_salutaPersonaggio_monolocale() {
+		this.diadia = new DiaDia(
+				new Partita(
+						Labirinto.newBuilder()
+						.addStanzaIniziale("stanza")
+						.addPersonaggio(new AbstractPersonaggio("Merlino", "buonsalve") {
+							@Override public String agisci(Partita partita) { return null; }
+							@Override public String riceviRegalo(Attrezzo attrezzo, Partita partita) { return null; }
+						})
+						.getLabirinto()),
+				this.io.aggiungiComandoDaEseguire("saluta")
+				.aggiungiComandoDaEseguire("fine"));
+		this.diadia.gioca();
+		assertTrue(this.io.getStampeEseguite().contains("Ciao, io sono Merlino.buonsalve"));
+	}
+
+	@Test
+	public void diadiaTest_interagisciMago_monolocale() {
+		this.diadia = new DiaDia(
+				new Partita(
+						Labirinto.newBuilder()
+						.addStanzaIniziale("stanza")
+						.addMago("Merlino", "buonsalve")
+						.getLabirinto()),
+				this.io.aggiungiComandoDaEseguire("interagisci")
+				.aggiungiComandoDaEseguire("fine"));
+		this.diadia.gioca();
+		assertTrue(this.io.getStampeEseguite().contains(Proprietà.getMessaggioScuse()));
+	}
+	
+	@Test
+	public void diadiaTest_regalaMago_monolocale() {
+		this.diadia = new DiaDia(
+				new Partita(
+						Labirinto.newBuilder()
+						.addStanzaIniziale("stanza")
+						.addMago("Merlino", "buonsalve")
+						.addAttrezzo("osso", 2)
+						.getLabirinto()),
+				this.io.aggiungiComandoDaEseguire("prendi osso")
+				.aggiungiComandoDaEseguire("guarda")
+				.aggiungiComandoDaEseguire("regala osso")
+				.aggiungiComandoDaEseguire("prendi osso")
+				.aggiungiComandoDaEseguire("guarda")
+				.aggiungiComandoDaEseguire("fine"));
+		this.diadia.gioca();
+		assertTrue(this.io.getStampeEseguite().contains(Proprietà.getMessaggioDono()));
+		assertTrue(this.io.getStampeEseguite().indexOf("Contenuto borsa: [osso (1kg)]") > this.io.getStampeEseguite().indexOf("Contenuto borsa: [osso (2kg)]") );
+	}
 	
 }

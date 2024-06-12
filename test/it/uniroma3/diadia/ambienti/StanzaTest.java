@@ -76,28 +76,21 @@ public class StanzaTest {
 	}
 	@Test
 	public void testGetStanzaAdiacente_stanzaNonPresente() {
-		assertNull(this.vuota.getStanzaAdiacente("inesistente"));
+		assertNull(this.vuota.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	
 	@Test
 	public void testImpostaStanzaAdiacente() {
-		assertNull(this.room.getStanzaAdiacente("Nord"));
-		this.room.impostaStanzaAdiacente("Nord", this.piena);
-		assertEquals(this.piena, this.room.getStanzaAdiacente("Nord"));
+		assertNull(this.room.getStanzaAdiacente(Direzione.NORD));
+		this.room.impostaStanzaAdiacente(Direzione.NORD, this.piena);
+		assertEquals(this.piena, this.room.getStanzaAdiacente(Direzione.NORD));
 	}
 	@Test
 	public void testImpostaStanzaAdiacente_sostituisciStanza() {
-		this.room.impostaStanzaAdiacente("Nord", this.piena);
-		assertEquals(this.piena, this.room.getStanzaAdiacente("Nord"));
-		this.room.impostaStanzaAdiacente("Nord", this.vuota);
-		assertEquals(this.vuota, this.room.getStanzaAdiacente("Nord"));
-	}
-	@Test 
-	public void testImpostaStanzaAdiacente_direzioniEsaurite(){
-		for(int i = 0; i < 4; i++) 
-			this.room.impostaStanzaAdiacente("dir"+i, this.piena);
-		this.room.impostaStanzaAdiacente("Nord", this.vuota);
-		assertFalse(this.room.getDirezioni().contains("Nord"));
+		this.room.impostaStanzaAdiacente(Direzione.NORD, this.piena);
+		assertEquals(this.piena, this.room.getStanzaAdiacente(Direzione.NORD));
+		this.room.impostaStanzaAdiacente(Direzione.NORD, this.vuota);
+		assertEquals(this.vuota, this.room.getStanzaAdiacente(Direzione.NORD));
 	}
 }

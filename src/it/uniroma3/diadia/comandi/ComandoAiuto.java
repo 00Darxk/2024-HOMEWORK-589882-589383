@@ -1,5 +1,12 @@
 package it.uniroma3.diadia.comandi;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
+
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
@@ -7,42 +14,51 @@ import it.uniroma3.diadia.Partita;
 /**
  * Classe ComandoAiuto - Stampa informazioni di aiuto.
  * 
- * @see Comando
+ * @see AbstractComando
  * @see Partita
  * @see IO
- * @version 3.0
+ * @version 4.0
  */
-public class ComandoAiuto implements Comando {
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa", "guarda"};
-	private IO io;
+public class ComandoAiuto extends AbstractComando {
+	private Set<String> elencoComandi;
+	
+	public ComandoAiuto() {
+		super.setNome(this.getClass().getSimpleName());
+		this.elencoComandi = new HashSet<>();
+	}
+	
+	private void creaListaComandi() throws IOException{
+		BufferedReader reader = null;
+		ClassLoader.getSystemClassLoader();
+		try (InputStream in = ClassLoader.getSystemResourceAsStream(ComandoAiuto.class.getPackage().toString().substring(8).replaceAll("[.]","/"))){
+			reader = new BufferedReader(new InputStreamReader(in));
+			//System.out.println(ClassLoader.getSystemResource(ComandoAiuto.class.getPackage().toString().substring(8).replaceAll("[.]","/")).toString());
+			//System.out.println(this.getClass().getClassLoader().getResourceAsStream(ComandoAiuto.class.getPackage().toString().substring(8).replaceAll("[.]","/")).toString());
+			String riga = reader.readLine();
+			do {
+				riga = reader.readLine();
+				if(isComandoNotValido(riga))
+					continue;
+				String comando = riga.substring(7).replaceAll(".class", "").trim();
+				if(comando.isEmpty()) 
+					continue;
+				this.elencoComandi.add(comando.replace(comando.charAt(0), Character.toLowerCase(comando.charAt(0))));
+			}while(riga != null);
+		} catch (IOException e) { e.printStackTrace(); 
+		} finally { if(reader != null) reader.close(); }
+	}
+	
+	private boolean isComandoNotValido(String riga) {
+		return riga == null || !riga.startsWith("Comando") || riga.contains("Test") || riga.contains("$") || riga.contains("NonValido");
+	}
 	
 	@Override
 	public void esegui(Partita partita) {
-		StringBuilder elenco = new StringBuilder();
-		for(int i=0; i< elencoComandi.length; i++) 
-			elenco.append(elencoComandi[i]+" ");
-		io.mostraMessaggio(elenco + "\n");
-	}
-
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}
-	
-	@Override
-	public void setParametro(String parametro) {}
-
-	@Override
-	public String getNome() {
-		return "aiuto";
-	}
-
-	@Override
-	public String getParametro() {
-		return null;
-	}
-	
-	public IO getIO() {
-		return this.io;
+		try {
+			creaListaComandi();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		super.getIO().mostraMessaggio(elencoComandi.toString());
 	}
 }

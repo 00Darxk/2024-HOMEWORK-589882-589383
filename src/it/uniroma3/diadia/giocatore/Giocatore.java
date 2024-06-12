@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.Proprietà;
 
 /**
  * Classe Giocatore - Il giocatore del gioco di ruolo. 
@@ -8,16 +9,17 @@ package it.uniroma3.diadia.giocatore;
  * tipo Borsa.
  * 
  * @see Borsa
- * @version 3.0
+ * @see Proprietà
+ * @version 4.0
  */
 public class Giocatore {
-		static final private int CFU_INIZIALI = 20;
+		static final private int CFU_INIZIALI = Proprietà.getCFUIniziali();
 	
 		private int CFU;
 		private Borsa bag;
 		
 		public Giocatore() {
-			this(CFU_INIZIALI, Borsa.DEFAULT_PESO_MAX_BORSA);
+			this(CFU_INIZIALI, Proprietà.getPesoMaxBorsa());
 		}
 
 		public Giocatore(int CFU, int maxPeso) {

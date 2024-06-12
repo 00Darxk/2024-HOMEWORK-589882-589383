@@ -1,15 +1,17 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.Proprietà;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /** Classe StanzaMagicaProtected - Modella il comportamento 
  * 	di stanze magiche nel gioco di ruolo. 
  * 
  * 	@see StanzaProtected
- *  @version 3.0
+ *	@see Proprietà
+ *  @version 4.0
  */
 public class StanzaMagicaProtected extends StanzaProtected{
-	final static private int SOGLIA_MAGICA_DEFAULT = 3;
+	final static private int SOGLIA_MAGICA_DEFAULT = Proprietà.getSogliaMagica();
 	
 	private int contatoreAttrezziPosati;
 	private int sogliaMagica;
@@ -28,8 +30,8 @@ public class StanzaMagicaProtected extends StanzaProtected{
 		this.contatoreAttrezziPosati++;
 		if (this.contatoreAttrezziPosati > this.sogliaMagica)
 			attrezzo = this.modificaAttrezzo(attrezzo);		
-		if (this.attrezzi.size() < NUMERO_MASSIMO_ATTREZZI) {
-			this.attrezzi.put(attrezzo.getNome(), attrezzo);
+		if (this.nome2attrezzo.size() < Proprietà.getNumeroMassimoAttrezzi()) {
+			this.nome2attrezzo.put(attrezzo.getNome(), attrezzo);
 			return true;
 		}
 		return false;	

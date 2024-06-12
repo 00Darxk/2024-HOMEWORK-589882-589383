@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import it.uniroma3.diadia.Proprietà;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
@@ -16,10 +19,11 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * gli oggetti del giocatore. 
  * 
  * @see Attrezzo
- * @version 3.0
+ * @see Proprietà
+ * @version 4.0
  */
 public class Borsa {
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+	private final static int DEFAULT_PESO_MAX_BORSA = Proprietà.getPesoMaxBorsa();
 	
 	
 	private List<Attrezzo> attrezzi;
@@ -129,8 +133,18 @@ public class Borsa {
 	 */
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		final List<Attrezzo> ordinata = new ArrayList<>(this.attrezzi);
-		final ComparatorePerPeso cmp = new ComparatorePerPeso();
-		Collections.sort(ordinata, cmp);
+		Collections.sort(ordinata, new Comparator<Attrezzo>() {
+			@Override
+			public int compare(Attrezzo a1, Attrezzo a2) {
+				if(a1 == null) return -1;
+				else if(a2 == null) return 1;
+				int cmp = a1.getPeso() - a2.getPeso();
+				if(cmp==0) {
+					cmp= a1.getNome().compareTo(a2.getNome());
+				}
+				return cmp;
+			}
+		});
 		return ordinata;
 	}
 	

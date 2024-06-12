@@ -2,6 +2,7 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.Proprietà;
 
 
 
@@ -10,49 +11,32 @@ import it.uniroma3.diadia.Partita;
  * del giocatore alla stanza corrente
  * 
  * @see Stanza
+ * @see Borsa
  * @see Attrezzo
- * @see Comando
+ * @see AbstractComando
  * @see Partita
  * @see IO
- * @version 3.0
+ * @see Proprietà
+ * @version 4.0
  */
-public class ComandoPosa implements Comando {
-	private IO io;
-	private String nomeAttrezzo;
+public class ComandoPosa extends AbstractComando {
+	final static private String MESSAGGIO_ATTREZZO_INESISTENTE = Proprietà.getMessaggioAttrezzoInesistente();
+	final static private String MESSAGGIO_ATTREZZO_NON_POSATO = Proprietà.getMessaggioAttrezzoNonPosato();
+	
+	public ComandoPosa() {
+		super.setNome(this.getClass().getSimpleName());
+	}
 	
 	@Override
 	public void esegui(Partita partita) {
-		if(nomeAttrezzo == null || !(partita.getGiocatore().getBag().hasAttrezzo(nomeAttrezzo)))
-			this.io.mostraMessaggio("Attrezzo inesistente");
-		else if(partita.getStanzaCorrente().addAttrezzo(partita.getGiocatore().getBag().getAttrezzo(nomeAttrezzo)))
-			partita.getGiocatore().getBag().removeAttrezzo(nomeAttrezzo);
+		if(super.getParametro() == null || !(partita.getGiocatore().getBag().hasAttrezzo(super.getParametro())))
+			super.getIO().mostraMessaggio(MESSAGGIO_ATTREZZO_INESISTENTE);
+		else if(partita.getStanzaCorrente().addAttrezzo(partita.getGiocatore().getBag().getAttrezzo(super.getParametro())))
+			partita.getGiocatore().getBag().removeAttrezzo(super.getParametro() );
 		else
-			this.io.mostraMessaggio("Non è stato possibile posare l'attrezzo specificato.");
+			super.getIO().mostraMessaggio(MESSAGGIO_ATTREZZO_NON_POSATO);
 
-		this.io.mostraMessaggio(partita.getGiocatore().getBag().toString());
-		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo=parametro;
-	}
-
-	@Override
-	public String getNome() {
-		return "posa";
-	}
-
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-
-	public void setIO(IO io) {
-		this.io = io;
-	}
-	
-	public IO getIO() {
-		return this.io;
+		super.getIO().mostraMessaggio(partita.getGiocatore().getBag().toString());
+		super.getIO().mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 }

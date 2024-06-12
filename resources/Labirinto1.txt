@@ -1,0 +1,11 @@
+
+Stanze: Atrio, Sala, Corridoio, Camera, Cucina, Laboratorio, Giardino
+Stanze Buie: Camera Torcia
+Stanze Magiche:
+Stanze Bloccate: Laboratorio est Chiave, Sala est Chiave
+Inizio: Atrio
+Vincente: Giardino
+Attrezzi: Torcia 3 Sala, Osso 2 Atrio, Chiave 1 Corridoio
+Personaggi: Cucina Strega Medusa SSHsHsh, Corridoio Cane Cerbero woof Osso bastone 2, Laboratorio Mago Merlino_il_Vecchio ciao
+Uscite: Atrio nord Sala, Sala ovest Corridoio, Sala est Giardino, Corridoio nord Camera, Corridoio ovest Cucina, Cucina nord Laboratorio, Laboratorio est Giardino, Camera ovest Laboratorio
+				

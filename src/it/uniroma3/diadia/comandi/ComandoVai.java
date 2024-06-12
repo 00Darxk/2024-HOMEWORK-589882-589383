@@ -2,6 +2,8 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.Proprietà;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 
@@ -10,54 +12,35 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * e ne stampa il nome, altrimenti stampa un messaggio di errore
  * 
  * @see Stanza
- * @see Comando
+ * @see AbstractComando
  * @see Partita
  * @see IO
- * @version 3.0
+ * @see Proprietà
+ * @see Direzione
+ * @version 4.0
  */
 
-public class ComandoVai implements Comando{
-	private IO io;
-	private String direzione;
-
+public class ComandoVai extends AbstractComando{
+	final static private String MESSAGGIO_QUALE_DIREZIONE = Proprietà.getMessaggioQualeDirezione();
+	
+	public ComandoVai() {
+		super.setNome(this.getClass().getSimpleName());
+	}
+	
 	@Override
 	public void esegui(Partita partita) {
-		if(direzione == null)
-			this.io.mostraMessaggio("Dove vuoi andare ?");
-
+		if(super.getParametro()  == null) {
+			super.getIO().mostraMessaggio(MESSAGGIO_QUALE_DIREZIONE);
+			return ;
+		}
 		Stanza prossimaStanza = null;
-		prossimaStanza = partita.getStanzaCorrente().getStanzaAdiacente(direzione);
+		prossimaStanza = partita.getStanzaCorrente().getStanzaAdiacente(Direzione.valueOf(super.getParametro().toUpperCase()));
 		if (prossimaStanza == null)
-			this.io.mostraMessaggio("Direzione inesistente");
+			super.getIO().mostraMessaggio("Direzione inesistente");
 		else {
 			partita.setStanzaCorrente(prossimaStanza);
 			partita.getGiocatore().setCFU(partita.getGiocatore().getCFU()-1);
 		}
-		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-	}
-	
-	@Override
-	public void setParametro(String parametro) {
-		this.direzione=parametro;
-	}
-
-	@Override
-	public String getNome() {
-		return "vai";
-	}
-
-	@Override
-	public String getParametro() {
-		return this.direzione;
-	}
-
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}
-	
-	@Override
-	public IO getIO() {
-		return this.io;
+		super.getIO().mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 }

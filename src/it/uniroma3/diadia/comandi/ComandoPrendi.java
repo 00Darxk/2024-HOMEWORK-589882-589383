@@ -2,6 +2,7 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.Proprietà;
 
 
 /**
@@ -9,51 +10,32 @@ import it.uniroma3.diadia.Partita;
  * del giocatore alla borsa
  * 
  * @see Stanza
+ * @see Borsa
  * @see Attrezzo
- * @see Comando
+ * @see AbstractComando
  * @see Partita
  * @see IO
- * @version 3.0
+ * @see Proprietà
+ * @version 4.0
  */
-public class ComandoPrendi implements Comando {
-	private IO io;
-	private String nomeAttrezzo;
+public class ComandoPrendi extends AbstractComando {
+	final static private String MESSAGGIO_ATTREZZO_INESISTENTE = Proprietà.getMessaggioAttrezzoInesistente();
+	final static private String MESSAGGIO_ATTREZZO_NON_PRESO = Proprietà.getMessaggioAttrezzoNonPreso();
+	
+	public ComandoPrendi() {
+		super.setNome(this.getClass().getSimpleName());
+	}
 	
 	@Override
 	public void esegui(Partita partita) {
-		if(nomeAttrezzo == null || !(partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)))
-			this.io.mostraMessaggio("Attrezzo inesistente");
-		else if(partita.getGiocatore().getBag().addAttrezzo(partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo))) 
-			partita.getStanzaCorrente().removeAttrezzo(partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo));
+		if(super.getParametro()  == null || !(partita.getStanzaCorrente().hasAttrezzo(super.getParametro() )))
+			super.getIO().mostraMessaggio(MESSAGGIO_ATTREZZO_INESISTENTE);
+		else if(partita.getGiocatore().getBag().addAttrezzo(partita.getStanzaCorrente().getAttrezzo(super.getParametro() ))) 
+			partita.getStanzaCorrente().removeAttrezzo(partita.getStanzaCorrente().getAttrezzo(super.getParametro() ));
 		else
-			this.io.mostraMessaggio("Non è stato possibile prendere l'attrezzo specificato.");
+			super.getIO().mostraMessaggio(MESSAGGIO_ATTREZZO_NON_PRESO);
 
-		this.io.mostraMessaggio(partita.getGiocatore().getBag().toString());
-		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo=parametro;
-	}
-
-	@Override
-	public String getNome() {
-		return "prendi";
-	}
-
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}
-	
-	@Override
-	public IO getIO() {
-		return this.io;
+		super.getIO().mostraMessaggio(partita.getGiocatore().getBag().toString());
+		super.getIO().mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 }

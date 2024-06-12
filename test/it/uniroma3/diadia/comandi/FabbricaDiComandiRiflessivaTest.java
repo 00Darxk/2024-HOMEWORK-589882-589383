@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class FabbricaDiComandiFisarmonicaTest {
-	final private FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
+public class FabbricaDiComandiRiflessivaTest {
+	final private FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
 	final private String parametro = "parametro";
 	
 	private String istruzione;
@@ -20,7 +20,7 @@ public class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void costruisciComandoTest_nomeIstruzioneNonNull() {
 		this.istruzione = "nonvalido";
-		assertEquals(this.istruzione, this.factory.costruisciComando(this.istruzione).getNome());
+		assertEquals(this.istruzione, this.factory.costruisciComando(null).getNome());
 		this.istruzione = "vai";
 		assertEquals(this.istruzione, this.factory.costruisciComando(this.istruzione).getNome());
 		this.istruzione = "prendi";

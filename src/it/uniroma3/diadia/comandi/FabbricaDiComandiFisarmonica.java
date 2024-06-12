@@ -7,7 +7,7 @@ import java.util.Scanner;
  * 
  * @see FabbricaDiComandi
  * @see Comando
- * @version 3.0
+ * @version 4.0
  */
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 	@Override
@@ -41,6 +41,7 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 			comando = new ComandoGuarda();
 		else comando = new ComandoNonValido();
 		comando.setParametro(parametro);
+		scannerDiParole.close();
 		return comando;
 	}
 }

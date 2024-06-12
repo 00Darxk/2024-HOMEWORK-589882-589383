@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendiTest {
@@ -25,16 +25,16 @@ public class ComandoPrendiTest {
 	
 	@Test
 	public void eseguiTest_attrezzoInesistente() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.getLabirinto());
 		this.comandoPrendi.esegui(this.partita);
-		assertEquals("Attrezzo inesistente", ((IOSimulator)this.comandoPrendi.getIO()).getStampeEseguite().get(0));
+		assertEquals("Attrezzo Inesistente", ((IOSimulator)this.comandoPrendi.getIO()).getStampeEseguite().get(0));
 	}
 	
 	@Test
 	public void eseguiTest_borsaVuota() {
-		this.partita= new Partita(new LabirintoBuilder()
+		this.partita= new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.addAttrezzo("tool", 3)
 				.getLabirinto());
@@ -46,7 +46,7 @@ public class ComandoPrendiTest {
 	
 	@Test
 	public void eseguiTest_borsaPiena() {
-		this.partita= new Partita(new LabirintoBuilder()
+		this.partita= new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.addAttrezzo("tool", 3)
 				.getLabirinto());

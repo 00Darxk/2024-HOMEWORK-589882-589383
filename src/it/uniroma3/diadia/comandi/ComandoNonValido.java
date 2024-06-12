@@ -2,43 +2,27 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.Proprietà;
 
 /**
  * Classe ComandoNonValido - Modella il 
  * comportamento di un comando sconosciuto
  * 
- * @see Comando
+ * @see AbstractComando
  * @see Partita
  * @see IO
- * @version 3.0
+ * @see Proprietà
+ * @version 4.0
  */
-public class ComandoNonValido implements Comando{
-	private IO io;
+public class ComandoNonValido extends AbstractComando{
+	final static private String MESSAGGIO_COMANDO_SCONOSCIUTO = Proprietà.getMessaggioComandoSconosciuto();
+	
+	public ComandoNonValido() {
+		super.setNome(this.getClass().getSimpleName());
+	}
 	
 	@Override
 	public void esegui(Partita partita) {
-		this.io.mostraMessaggio("Comando Sconosciuto");
-	}
-	
-	@Override
-	public void setParametro(String parametro) {}
-
-	@Override
-	public String getNome() {
-		return "non valido";
-	}
-
-	@Override
-	public String getParametro() {
-		return null;
-	}
-
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}	
-	
-	public IO getIO() {
-		return this.io;
+		super.getIO().mostraMessaggio(MESSAGGIO_COMANDO_SCONOSCIUTO);
 	}
 }

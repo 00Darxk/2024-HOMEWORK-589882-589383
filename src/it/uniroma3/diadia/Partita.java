@@ -1,4 +1,7 @@
 package it.uniroma3.diadia;
+import java.io.IOException;
+
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
@@ -10,7 +13,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  * @see Stanza
  * @see Labirinto
  * @see Giocatore
- * @version 3.0
+ * @version 4.0
  */
 
 public class Partita {
@@ -30,9 +33,13 @@ public class Partita {
 	public Partita(Labirinto labirinto) {
 		this(labirinto, new Giocatore());
 	}
+
+	public Partita(String nomeFile) throws FormatoFileNonValidoException, IOException {
+		this(Labirinto.newBuilder(nomeFile).getLabirinto(), new Giocatore());
+	}
 	
-	public Partita() {
-		this(new Labirinto(), new Giocatore());
+	public Partita() throws FormatoFileNonValidoException, IOException {
+		this("LabirintoDefault");
 	}
 
 	/**
@@ -89,5 +96,4 @@ public class Partita {
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
-	
 }

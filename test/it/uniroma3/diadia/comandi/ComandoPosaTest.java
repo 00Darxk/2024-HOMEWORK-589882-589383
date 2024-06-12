@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosaTest {
@@ -25,17 +25,17 @@ public class ComandoPosaTest {
 	
 	@Test
 	public void eseguiTest_attrezzoInesistente() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.getLabirinto());
 		assertFalse(partita.getGiocatore().getBag().hasAttrezzo("tool"));
 		this.comandoPosa.esegui(this.partita);
-		assertEquals("Attrezzo inesistente", ((IOSimulator)this.comandoPosa.getIO()).getStampeEseguite().get(0));
+		assertEquals("Attrezzo Inesistente", ((IOSimulator)this.comandoPosa.getIO()).getStampeEseguite().get(0));
 	}
 	
 	@Test
 	public void eseguiTest_stanzaVuota() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.getLabirinto());
 		this.partita.getGiocatore().getBag().addAttrezzo(new Attrezzo("tool",3));
@@ -47,7 +47,7 @@ public class ComandoPosaTest {
 	
 	@Test
 	public void eseguiTest_stanzaPiena() {
-		this.partita = new Partita(new LabirintoBuilder()
+		this.partita = new Partita(Labirinto.newBuilder()
 				.addStanzaIniziale("camera")
 				.addAttrezzo("piuma1", 1)
 				.addAttrezzo("piuma2", 2)
